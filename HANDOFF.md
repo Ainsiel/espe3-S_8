@@ -2,7 +2,7 @@
 
 Este documento sirve como bitácora y estado de situación formal para la fábrica de software agentica **FabricaWebTransaccionalSDD**. Contiene información clave para los agentes y desarrolladores que inicien nuevos hilos de proyecto.
 
-- **Última Actualización:** 2026-05-25 19:28:48 UTC
+- **Última Actualización:** 2026-05-26 12:14:58 UTC
 - **Estado de la Fábrica:** `OPERATIONAL` (Activa, Limpia y Validada para Nuevos Ciclos)
 
 ---
@@ -12,10 +12,10 @@ Estas métricas son calculadas dinámicamente de forma acumulada desde el histor
 
 | Métrica | Valor Registrado |
 |---|---|
-| Ciclos de Orquestación Ejecutados | 17 |
+| Ciclos de Orquestación Ejecutados | 19 |
 | Proyectos Gestionados | 5 |
-| Consumo Acumulado de Tokens | 355715 |
-| Costo Estimado Acumulado | $0.063669 |
+| Consumo Acumulado de Tokens | 382115 |
+| Costo Estimado Acumulado | $0.068731 |
 | Llamadas a Herramientas | 0 |
 
 ---
@@ -33,8 +33,9 @@ Para entender los lineamientos, stack y políticas operativas antes de iniciar c
 ## 3. Estado de los Directorios y Entornos
 
 ### 3.1 Proyectos Activos (Directorio `projects/`)
-- **Proyecto ID:** `EJEMPLO_DOS` (Especificación: Sí) | [Abrir Directorio](file:///Users/jota/Desktop/GEMINI/Fabrica BÁSICA APP WEB/projects/EJEMPLO_DOS)
-- **Proyecto ID:** `EJEMPLO_UNO` (Especificación: Sí) | [Abrir Directorio](file:///Users/jota/Desktop/GEMINI/Fabrica BÁSICA APP WEB/projects/EJEMPLO_UNO)
+- **Proyecto ID:** `EJEMPLO_DOS` (Especificación: Sí) | [Abrir Directorio](file://C:\Users\Ainsi\Desktop\proyectos\espe3-S_8\projects\EJEMPLO_DOS)
+- **Proyecto ID:** `EJEMPLO_UNO` (Especificación: Sí) | [Abrir Directorio](file://C:\Users\Ainsi\Desktop\proyectos\espe3-S_8\projects\EJEMPLO_UNO)
+- **Proyecto ID:** `test_project` (Especificación: Sí) | [Abrir Directorio](file://C:\Users\Ainsi\Desktop\proyectos\espe3-S_8\projects\test_project)
 
 *Nota: Los proyectos listados sirven de referencia histórica para implementaciones transaccionales y modularización.*
 

@@ -104,5 +104,5 @@ class SandboxManager:
                     "exit_code": 0
                 }
 
-        # Run pytest via python3 -m pytest to avoid local executable path issues
-        return self.run_command("python3 -m pytest", cwd_subdir=cwd_subdir)
+        # Run pytest via sys.executable to avoid local executable path issues
+        return self.run_command(f"{sys.executable} -m pytest", cwd_subdir=cwd_subdir)

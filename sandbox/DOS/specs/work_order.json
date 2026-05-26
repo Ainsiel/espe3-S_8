@@ -1,0 +1,7 @@
+{
+  "work_order_id": "WO-20260526-123544",
+  "project_id": "DOS",
+  "project_name": "TaskLiteJota - Gestor Personal de Tareas",
+  "requirement": "Desarrollar un sistema web para administrar tareas personales: crear, listar, editar, completar/reabrir, eliminar y filtrar tareas. Backend FastAPI con SQLite, frontend React + Bootstrap. Validar titulo 3-100 chars, prioridades baja/media/alta, estados pendiente/completada. Orden descendente por fecha de creacion.",
+  "started_at": "2026-05-26T12:35:44.776915Z"
+}

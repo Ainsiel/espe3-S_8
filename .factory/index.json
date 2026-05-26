@@ -1,102 +1,457 @@
 {
-  "last_updated": "2026-05-25T19:28:27.249344Z",
-  "spec_index": {},
+  "last_updated": "2026-05-26T12:35:48.980141Z",
+  "spec_index": {
+    "projects\\DOS\\specs\\analyze-report.md": {
+      "path": "projects\\DOS\\specs\\analyze-report.md",
+      "hash": "84968dc05208c736993377eca07a95eb437817b0a4d1ef1f0db7c5187a660648",
+      "size": 537,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\checklist.md": {
+      "path": "projects\\DOS\\specs\\checklist.md",
+      "hash": "3895912361ae3a97b6283a5e4dc358e4bf4eb669e345e50bd6ce2aea98df69c9",
+      "size": 905,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\clarifications.md": {
+      "path": "projects\\DOS\\specs\\clarifications.md",
+      "hash": "90b28f0176c36285a68edee2353d0663516dff56ce117592524a91557817256d",
+      "size": 654,
+      "last_modified": "2026-05-26T12:35:45.224443Z"
+    },
+    "projects\\DOS\\specs\\data-model.md": {
+      "path": "projects\\DOS\\specs\\data-model.md",
+      "hash": "4d43e31db4deadbb7e8330dca87490447caca5381726daace5fc820a123c31b9",
+      "size": 1039,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\deployment-plan.md": {
+      "path": "projects\\DOS\\specs\\deployment-plan.md",
+      "hash": "099ff05ab8ab83b952ef8681dd9fbf67adb36b6c2e21ba959f7f98b3f4fb8b88",
+      "size": 532,
+      "last_modified": "2026-05-26T12:35:48.861097Z"
+    },
+    "projects\\DOS\\specs\\plan.md": {
+      "path": "projects\\DOS\\specs\\plan.md",
+      "hash": "aeab8580bbffa4f5228fa0994e9c04fc1aaa339df75d290f89e19b5d086abb44",
+      "size": 788,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\rollback-plan.md": {
+      "path": "projects\\DOS\\specs\\rollback-plan.md",
+      "hash": "b38b5ca51569635b9c901030e08cc218ccfb2d8fc1f12c61e9c2c56a939e1842",
+      "size": 306,
+      "last_modified": "2026-05-26T12:35:48.861097Z"
+    },
+    "projects\\DOS\\specs\\security-review.md": {
+      "path": "projects\\DOS\\specs\\security-review.md",
+      "hash": "0a7202616f61c17f5a16cce2419475dc4d022910e2b383b1d176b6ee127c08ee",
+      "size": 1047,
+      "last_modified": "2026-05-26T12:35:48.858699Z"
+    },
+    "projects\\DOS\\specs\\spec.md": {
+      "path": "projects\\DOS\\specs\\spec.md",
+      "hash": "54e183e63dafe5c8f0279932b5a46407dcf3403c14de485eadb7d7aeda4b8f16",
+      "size": 5338,
+      "last_modified": "2026-05-26T12:35:45.224443Z"
+    },
+    "projects\\DOS\\specs\\tasks.md": {
+      "path": "projects\\DOS\\specs\\tasks.md",
+      "hash": "ac2a2e9fade8b89b5b8cbd2625e33b87b08fdc995b9663820dc00828e7491504",
+      "size": 924,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\test-plan.md": {
+      "path": "projects\\DOS\\specs\\test-plan.md",
+      "hash": "3fdbe1ec56914d0a494d7b1158b2345e02f942750eb97b494628f5a4062bf5cf",
+      "size": 723,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "projects\\DOS\\specs\\test-report.md": {
+      "path": "projects\\DOS\\specs\\test-report.md",
+      "hash": "1320bdb98b7a7fae1399968fb0d8382bc15113f9fe4fe397cfa5baa705a9d859",
+      "size": 3640,
+      "last_modified": "2026-05-26T12:35:48.856706Z"
+    },
+    "projects\\DOS\\specs\\traceability-matrix.md": {
+      "path": "projects\\DOS\\specs\\traceability-matrix.md",
+      "hash": "b5e0bdb86f431eb28030d0d5f6571c65ce1d155ea71c813cb2e08953edf350c1",
+      "size": 676,
+      "last_modified": "2026-05-26T12:35:45.235527Z"
+    },
+    "projects\\DOS\\specs\\validation-report.md": {
+      "path": "projects\\DOS\\specs\\validation-report.md",
+      "hash": "23420ae80d96f1bdf2134eaca3429e1a307d343ff3f1e0695a361d932125eb6a",
+      "size": 1332,
+      "last_modified": "2026-05-26T12:35:48.856706Z"
+    },
+    "projects\\DOS\\specs\\work_order.json": {
+      "path": "projects\\DOS\\specs\\work_order.json",
+      "hash": "6f50f9e1dc7b187158125b0c90c046781376a7dc321a0cd3998cce59bb9c60df",
+      "size": 517,
+      "last_modified": "2026-05-26T12:35:44.775393Z"
+    },
+    "projects\\test_project\\specs\\analyze-report.md": {
+      "path": "projects\\test_project\\specs\\analyze-report.md",
+      "hash": "faec8c3599564277cfb941529bdded6dfddb1bb29e85c00a7fa98e24ed75311c",
+      "size": 478,
+      "last_modified": "2026-05-26T12:14:28.457457Z"
+    },
+    "projects\\test_project\\specs\\checklist.md": {
+      "path": "projects\\test_project\\specs\\checklist.md",
+      "hash": "2a39779c532659f5f922085307902174734430f8f7c2d66b583cfd509280250f",
+      "size": 628,
+      "last_modified": "2026-05-26T12:14:28.451958Z"
+    },
+    "projects\\test_project\\specs\\clarifications.md": {
+      "path": "projects\\test_project\\specs\\clarifications.md",
+      "hash": "2b8c20831d3699553abf63a267648a436d3c175afd25c55c7d27289b978e017b",
+      "size": 684,
+      "last_modified": "2026-05-26T12:14:28.451449Z"
+    },
+    "projects\\test_project\\specs\\data-model.md": {
+      "path": "projects\\test_project\\specs\\data-model.md",
+      "hash": "3dba4db95ffb542c32f73a22aac6d4759d0106616a7dbd7d91ef6324a1dfaadf",
+      "size": 745,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "projects\\test_project\\specs\\deployment-plan.md": {
+      "path": "projects\\test_project\\specs\\deployment-plan.md",
+      "hash": "2ba674ec6fa0c2512f5cbb96285507048309b100a822d220df3cf72e0da1d544",
+      "size": 486,
+      "last_modified": "2026-05-26T12:14:30.912829Z"
+    },
+    "projects\\test_project\\specs\\plan.md": {
+      "path": "projects\\test_project\\specs\\plan.md",
+      "hash": "8cc06c53c5f10c2772439ac83ce74ab5fb2370e0f14f74592c8519edf8b5e85f",
+      "size": 1113,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "projects\\test_project\\specs\\rollback-plan.md": {
+      "path": "projects\\test_project\\specs\\rollback-plan.md",
+      "hash": "6196e1749eff893c90af4c2b31e521d69dd3801f175d2b2b0d86cea807caf413",
+      "size": 337,
+      "last_modified": "2026-05-26T12:14:30.913826Z"
+    },
+    "projects\\test_project\\specs\\security-review.md": {
+      "path": "projects\\test_project\\specs\\security-review.md",
+      "hash": "ea81f13e4798f1622309b33401a07dbae22988c2d4c993887c57b9ee1d4de8f9",
+      "size": 1023,
+      "last_modified": "2026-05-26T12:14:30.911708Z"
+    },
+    "projects\\test_project\\specs\\spec.md": {
+      "path": "projects\\test_project\\specs\\spec.md",
+      "hash": "d93954291d8f90962c712d91d5e580dda659cb32f8fa3a38dc27464540156f00",
+      "size": 4348,
+      "last_modified": "2026-05-26T12:14:28.448449Z"
+    },
+    "projects\\test_project\\specs\\tasks.md": {
+      "path": "projects\\test_project\\specs\\tasks.md",
+      "hash": "9fa86748b0cf6357efdd747e387365c174fc0cd55f8f2d55bd03594f5d75008b",
+      "size": 793,
+      "last_modified": "2026-05-26T12:14:28.457457Z"
+    },
+    "projects\\test_project\\specs\\test-plan.md": {
+      "path": "projects\\test_project\\specs\\test-plan.md",
+      "hash": "81fdab2faf6bd4a9f10e1d37df464a49952322a797533316e83e960e8c178003",
+      "size": 477,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "projects\\test_project\\specs\\test-report.md": {
+      "path": "projects\\test_project\\specs\\test-report.md",
+      "hash": "c5d6ea63592f92c212b65f8ea32ae7b0e68fc6f615ee7ac09139386157d7c18a",
+      "size": 2284,
+      "last_modified": "2026-05-26T12:14:30.906686Z"
+    },
+    "projects\\test_project\\specs\\traceability-matrix.md": {
+      "path": "projects\\test_project\\specs\\traceability-matrix.md",
+      "hash": "2c012bc0cb3eced9075dc9b49c6319e3d9626c70f7cba3f92ad76e25281acb49",
+      "size": 485,
+      "last_modified": "2026-05-26T12:14:28.458458Z"
+    },
+    "projects\\test_project\\specs\\validation-report.md": {
+      "path": "projects\\test_project\\specs\\validation-report.md",
+      "hash": "b863e2059ab34081043fa94bda52da9662b149e57ee1c02e002627aea0f5a609",
+      "size": 827,
+      "last_modified": "2026-05-26T12:14:30.906686Z"
+    },
+    "projects\\test_project\\specs\\work_order.json": {
+      "path": "projects\\test_project\\specs\\work_order.json",
+      "hash": "7292e7c8fdb2fe0130318c1d232b118c7feebd56e08fa2ada9499e1106ffad78",
+      "size": 223,
+      "last_modified": "2026-05-26T12:14:28.396500Z"
+    },
+    "sandbox\\DOS\\specs\\analyze-report.md": {
+      "path": "sandbox\\DOS\\specs\\analyze-report.md",
+      "hash": "84968dc05208c736993377eca07a95eb437817b0a4d1ef1f0db7c5187a660648",
+      "size": 537,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\checklist.md": {
+      "path": "sandbox\\DOS\\specs\\checklist.md",
+      "hash": "3895912361ae3a97b6283a5e4dc358e4bf4eb669e345e50bd6ce2aea98df69c9",
+      "size": 905,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\clarifications.md": {
+      "path": "sandbox\\DOS\\specs\\clarifications.md",
+      "hash": "90b28f0176c36285a68edee2353d0663516dff56ce117592524a91557817256d",
+      "size": 654,
+      "last_modified": "2026-05-26T12:35:45.224443Z"
+    },
+    "sandbox\\DOS\\specs\\data-model.md": {
+      "path": "sandbox\\DOS\\specs\\data-model.md",
+      "hash": "4d43e31db4deadbb7e8330dca87490447caca5381726daace5fc820a123c31b9",
+      "size": 1039,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\plan.md": {
+      "path": "sandbox\\DOS\\specs\\plan.md",
+      "hash": "aeab8580bbffa4f5228fa0994e9c04fc1aaa339df75d290f89e19b5d086abb44",
+      "size": 788,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\spec.md": {
+      "path": "sandbox\\DOS\\specs\\spec.md",
+      "hash": "54e183e63dafe5c8f0279932b5a46407dcf3403c14de485eadb7d7aeda4b8f16",
+      "size": 5338,
+      "last_modified": "2026-05-26T12:35:45.224443Z"
+    },
+    "sandbox\\DOS\\specs\\tasks.md": {
+      "path": "sandbox\\DOS\\specs\\tasks.md",
+      "hash": "ac2a2e9fade8b89b5b8cbd2625e33b87b08fdc995b9663820dc00828e7491504",
+      "size": 924,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\test-plan.md": {
+      "path": "sandbox\\DOS\\specs\\test-plan.md",
+      "hash": "3fdbe1ec56914d0a494d7b1158b2345e02f942750eb97b494628f5a4062bf5cf",
+      "size": 723,
+      "last_modified": "2026-05-26T12:35:45.229344Z"
+    },
+    "sandbox\\DOS\\specs\\traceability-matrix.md": {
+      "path": "sandbox\\DOS\\specs\\traceability-matrix.md",
+      "hash": "b5e0bdb86f431eb28030d0d5f6571c65ce1d155ea71c813cb2e08953edf350c1",
+      "size": 676,
+      "last_modified": "2026-05-26T12:35:45.235527Z"
+    },
+    "sandbox\\DOS\\specs\\work_order.json": {
+      "path": "sandbox\\DOS\\specs\\work_order.json",
+      "hash": "6f50f9e1dc7b187158125b0c90c046781376a7dc321a0cd3998cce59bb9c60df",
+      "size": 517,
+      "last_modified": "2026-05-26T12:35:44.775393Z"
+    },
+    "sandbox\\test_project\\specs\\analyze-report.md": {
+      "path": "sandbox\\test_project\\specs\\analyze-report.md",
+      "hash": "faec8c3599564277cfb941529bdded6dfddb1bb29e85c00a7fa98e24ed75311c",
+      "size": 478,
+      "last_modified": "2026-05-26T12:14:28.457457Z"
+    },
+    "sandbox\\test_project\\specs\\checklist.md": {
+      "path": "sandbox\\test_project\\specs\\checklist.md",
+      "hash": "2a39779c532659f5f922085307902174734430f8f7c2d66b583cfd509280250f",
+      "size": 628,
+      "last_modified": "2026-05-26T12:14:28.451958Z"
+    },
+    "sandbox\\test_project\\specs\\clarifications.md": {
+      "path": "sandbox\\test_project\\specs\\clarifications.md",
+      "hash": "2b8c20831d3699553abf63a267648a436d3c175afd25c55c7d27289b978e017b",
+      "size": 684,
+      "last_modified": "2026-05-26T12:14:28.451449Z"
+    },
+    "sandbox\\test_project\\specs\\data-model.md": {
+      "path": "sandbox\\test_project\\specs\\data-model.md",
+      "hash": "3dba4db95ffb542c32f73a22aac6d4759d0106616a7dbd7d91ef6324a1dfaadf",
+      "size": 745,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "sandbox\\test_project\\specs\\plan.md": {
+      "path": "sandbox\\test_project\\specs\\plan.md",
+      "hash": "8cc06c53c5f10c2772439ac83ce74ab5fb2370e0f14f74592c8519edf8b5e85f",
+      "size": 1113,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "sandbox\\test_project\\specs\\spec.md": {
+      "path": "sandbox\\test_project\\specs\\spec.md",
+      "hash": "d93954291d8f90962c712d91d5e580dda659cb32f8fa3a38dc27464540156f00",
+      "size": 4348,
+      "last_modified": "2026-05-26T12:14:28.448449Z"
+    },
+    "sandbox\\test_project\\specs\\tasks.md": {
+      "path": "sandbox\\test_project\\specs\\tasks.md",
+      "hash": "9fa86748b0cf6357efdd747e387365c174fc0cd55f8f2d55bd03594f5d75008b",
+      "size": 793,
+      "last_modified": "2026-05-26T12:14:28.457457Z"
+    },
+    "sandbox\\test_project\\specs\\test-plan.md": {
+      "path": "sandbox\\test_project\\specs\\test-plan.md",
+      "hash": "81fdab2faf6bd4a9f10e1d37df464a49952322a797533316e83e960e8c178003",
+      "size": 477,
+      "last_modified": "2026-05-26T12:14:28.454461Z"
+    },
+    "sandbox\\test_project\\specs\\traceability-matrix.md": {
+      "path": "sandbox\\test_project\\specs\\traceability-matrix.md",
+      "hash": "2c012bc0cb3eced9075dc9b49c6319e3d9626c70f7cba3f92ad76e25281acb49",
+      "size": 485,
+      "last_modified": "2026-05-26T12:14:28.458458Z"
+    },
+    "sandbox\\test_project\\specs\\work_order.json": {
+      "path": "sandbox\\test_project\\specs\\work_order.json",
+      "hash": "7292e7c8fdb2fe0130318c1d232b118c7feebd56e08fa2ada9499e1106ffad78",
+      "size": 223,
+      "last_modified": "2026-05-26T12:14:28.396500Z"
+    }
+  },
   "code_index": {
     "chat.py": {
       "path": "chat.py",
-      "hash": "dfb87bf250af5e945d85f0fb8e87ca6905c88ebef6d1d3cb650a500831f234f6",
-      "size": 8769,
-      "last_modified": "2026-05-25T19:06:44.825088Z"
+      "hash": "6a33ec1689e899e2ebb5cca5717a912bca1c1110bb5d80b0fcd078d0449786a5",
+      "size": 12144,
+      "last_modified": "2026-05-26T12:11:38.876755Z"
     },
-    "core/usage_ledger.py": {
-      "path": "core/usage_ledger.py",
-      "hash": "505aa30396646112252ddf2b51b759b7744cf03d59561877a26aed9b3fce7024",
-      "size": 2659,
-      "last_modified": "2026-05-25T19:06:28.541486Z"
+    "run_cycle.py": {
+      "path": "run_cycle.py",
+      "hash": "e96854f48703583a48c61a2aa61e38bedc5fe82a1263531a09d8f8931e3dd69c",
+      "size": 1279,
+      "last_modified": "2026-05-26T12:35:03.580937Z"
     },
-    "core/cache_manager.py": {
-      "path": "core/cache_manager.py",
-      "hash": "21fdf8558d14625e5186250188a05447b3c9b47028c25445c93de2c6e372bd15",
-      "size": 2060,
-      "last_modified": "2026-05-25T15:08:18.590371Z"
+    ".factory\\cache.json": {
+      "path": ".factory\\cache.json",
+      "hash": "83be80af7a1f794c43ef0bdb3aad9a62c01713627db3318d3fc29fcb1c61a2d0",
+      "size": 9308,
+      "last_modified": "2026-05-26T12:14:31.034773Z"
     },
-    "core/logger.py": {
-      "path": "core/logger.py",
-      "hash": "461f2fc41d8071d69b660c6b1d503855e6e05ae4b49f744d02484bfc5a26abe8",
-      "size": 2635,
-      "last_modified": "2026-05-25T19:06:25.647186Z"
+    ".factory\\index.json": {
+      "path": ".factory\\index.json",
+      "hash": "f2e09e9eef2e3644d232b04f8db876fab17114996da88d5d58fd66c3dc75473a",
+      "size": 16843,
+      "last_modified": "2026-05-26T12:35:45.217961Z"
     },
-    "core/sandbox.py": {
-      "path": "core/sandbox.py",
-      "hash": "accf42576f5c9b8e3cfbcab0b37953243c1cbf33eb677177bde0d566a4d890b8",
-      "size": 4672,
-      "last_modified": "2026-05-25T19:16:50.103234Z"
-    },
-    "core/orchestrator.py": {
-      "path": "core/orchestrator.py",
-      "hash": "0807b66cc5c77a3beba9dcf17421de729aba1efefd514f8419bb75070a7ae955",
-      "size": 15230,
-      "last_modified": "2026-05-25T19:06:35.663502Z"
-    },
-    "core/index_manager.py": {
-      "path": "core/index_manager.py",
-      "hash": "269d777795458ada2a73fa26463f8ebbfa47efa2852670262b56aea018f1db0a",
-      "size": 4224,
-      "last_modified": "2026-05-25T19:06:32.004080Z"
-    },
-    "agents/implementer_agent.py": {
-      "path": "agents/implementer_agent.py",
-      "hash": "8b5d2527856a6d3ee0e2f2e8d9f521a81fc418c665843416d1fb50a8584a12b6",
-      "size": 121764,
-      "last_modified": "2026-05-25T17:09:34.865078Z"
-    },
-    "agents/architect_agent.py": {
-      "path": "agents/architect_agent.py",
+    "agents\\architect_agent.py": {
+      "path": "agents\\architect_agent.py",
       "hash": "7cbb99a070547d531fb10b0c6350205d3346167fcb92b0b2e49175178277d43c",
       "size": 9520,
-      "last_modified": "2026-05-25T17:09:00.215605Z"
+      "last_modified": "2026-05-26T12:11:38.606714Z"
     },
-    "agents/ops_security_agent.py": {
-      "path": "agents/ops_security_agent.py",
-      "hash": "af8cd6ef1f59e31b45532fdda1fe3fc5b3c7288f4daf8052faecd057f91d5ea5",
-      "size": 7565,
-      "last_modified": "2026-05-25T17:10:48.108221Z"
-    },
-    "agents/clarifier_qa_agent.py": {
-      "path": "agents/clarifier_qa_agent.py",
+    "agents\\clarifier_qa_agent.py": {
+      "path": "agents\\clarifier_qa_agent.py",
       "hash": "1516c9f32820652d73c338de13f5488b89b0c1140654142b0bf18b439c15e768",
       "size": 6175,
-      "last_modified": "2026-05-25T17:08:55.472769Z"
+      "last_modified": "2026-05-26T12:11:38.622540Z"
     },
-    "agents/sdd_spec_agent.py": {
-      "path": "agents/sdd_spec_agent.py",
+    "agents\\implementer_agent.py": {
+      "path": "agents\\implementer_agent.py",
+      "hash": "8b5d2527856a6d3ee0e2f2e8d9f521a81fc418c665843416d1fb50a8584a12b6",
+      "size": 121764,
+      "last_modified": "2026-05-26T12:11:38.596893Z"
+    },
+    "agents\\ops_security_agent.py": {
+      "path": "agents\\ops_security_agent.py",
+      "hash": "af8cd6ef1f59e31b45532fdda1fe3fc5b3c7288f4daf8052faecd057f91d5ea5",
+      "size": 7565,
+      "last_modified": "2026-05-26T12:11:38.608895Z"
+    },
+    "agents\\sdd_spec_agent.py": {
+      "path": "agents\\sdd_spec_agent.py",
       "hash": "3e89cfd9eddabc63284f9bad24c8286d405198caa8f447a2d821c32e51f78194",
       "size": 15839,
-      "last_modified": "2026-05-25T19:06:41.812737Z"
+      "last_modified": "2026-05-26T12:11:38.627050Z"
     },
-    "agents/validation_agent.py": {
-      "path": "agents/validation_agent.py",
-      "hash": "82327e55b7e7899d2189680a84c549f730257c3ae23cfb364cc3692a1e870f17",
-      "size": 8569,
-      "last_modified": "2026-05-25T17:10:32.256930Z"
-    },
-    "agents/task_analyzer_agent.py": {
-      "path": "agents/task_analyzer_agent.py",
+    "agents\\task_analyzer_agent.py": {
+      "path": "agents\\task_analyzer_agent.py",
       "hash": "d112f908ac0b27e79325a8789d737997fe4835218157357c0e074916f1c9306a",
       "size": 8288,
-      "last_modified": "2026-05-25T17:09:04.152019Z"
+      "last_modified": "2026-05-26T12:11:38.637003Z"
     },
-    ".factory/cache.json": {
-      "path": ".factory/cache.json",
-      "hash": "0c3dbe09afec82bcc304cb6dc4d5f632e72b17e79c9926d5e9a6f58d124600f4",
-      "size": 9291,
-      "last_modified": "2026-05-25T19:19:24.421067Z"
+    "agents\\validation_agent.py": {
+      "path": "agents\\validation_agent.py",
+      "hash": "82327e55b7e7899d2189680a84c549f730257c3ae23cfb364cc3692a1e870f17",
+      "size": 8569,
+      "last_modified": "2026-05-26T12:11:38.637003Z"
     },
-    ".factory/index.json": {
-      "path": ".factory/index.json",
-      "hash": "9b79db7a8f9911390b517f1bebd4316698376b5a76a5678b47f47fc7f2870ccc",
-      "size": 43902,
-      "last_modified": "2026-05-25T19:19:24.420917Z"
+    "core\\cache_manager.py": {
+      "path": "core\\cache_manager.py",
+      "hash": "21fdf8558d14625e5186250188a05447b3c9b47028c25445c93de2c6e372bd15",
+      "size": 2060,
+      "last_modified": "2026-05-26T12:11:38.716850Z"
+    },
+    "core\\index_manager.py": {
+      "path": "core\\index_manager.py",
+      "hash": "269d777795458ada2a73fa26463f8ebbfa47efa2852670262b56aea018f1db0a",
+      "size": 4224,
+      "last_modified": "2026-05-26T12:11:38.748604Z"
+    },
+    "core\\logger.py": {
+      "path": "core\\logger.py",
+      "hash": "461f2fc41d8071d69b660c6b1d503855e6e05ae4b49f744d02484bfc5a26abe8",
+      "size": 2635,
+      "last_modified": "2026-05-26T12:11:38.726799Z"
+    },
+    "core\\orchestrator.py": {
+      "path": "core\\orchestrator.py",
+      "hash": "0807b66cc5c77a3beba9dcf17421de729aba1efefd514f8419bb75070a7ae955",
+      "size": 15230,
+      "last_modified": "2026-05-26T12:11:38.741174Z"
+    },
+    "core\\sandbox.py": {
+      "path": "core\\sandbox.py",
+      "hash": "434000319844ca9e8c1f59e10f18feaf3ca618d70d59de28fe04b0f6b34f6e31",
+      "size": 4679,
+      "last_modified": "2026-05-26T12:14:15.836170Z"
+    },
+    "core\\usage_ledger.py": {
+      "path": "core\\usage_ledger.py",
+      "hash": "505aa30396646112252ddf2b51b759b7744cf03d59561877a26aed9b3fce7024",
+      "size": 2659,
+      "last_modified": "2026-05-26T12:11:38.706719Z"
+    },
+    "projects\\DOS\\backend\\app\\main.py": {
+      "path": "projects\\DOS\\backend\\app\\main.py",
+      "hash": "663bcd38b4f0200c35cea6b3460f9befa3919569cce0ecae0b40218034f0bff2",
+      "size": 6577,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "projects\\DOS\\frontend\\index.html": {
+      "path": "projects\\DOS\\frontend\\index.html",
+      "hash": "4a3aad5e6b430fffd7ba265062b4dfb079d9942dd184c23b4bda5146bd584013",
+      "size": 30035,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "projects\\test_project\\backend\\app\\main.py": {
+      "path": "projects\\test_project\\backend\\app\\main.py",
+      "hash": "bf3539fb5fd61116037e74d9d10f10e1252449f95387875670f75e4b110291ed",
+      "size": 2712,
+      "last_modified": "2026-05-26T12:14:28.463042Z"
+    },
+    "projects\\test_project\\frontend\\index.html": {
+      "path": "projects\\test_project\\frontend\\index.html",
+      "hash": "f4d26a4e558ad69e1d260e8fdf79707193c8218ff50e53db7d6919b56d791bac",
+      "size": 7829,
+      "last_modified": "2026-05-26T12:14:28.464051Z"
+    },
+    "sandbox\\DOS\\backend\\app\\main.py": {
+      "path": "sandbox\\DOS\\backend\\app\\main.py",
+      "hash": "663bcd38b4f0200c35cea6b3460f9befa3919569cce0ecae0b40218034f0bff2",
+      "size": 6577,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "sandbox\\DOS\\frontend\\index.html": {
+      "path": "sandbox\\DOS\\frontend\\index.html",
+      "hash": "4a3aad5e6b430fffd7ba265062b4dfb079d9942dd184c23b4bda5146bd584013",
+      "size": 30035,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "sandbox\\test_project\\backend\\app\\main.py": {
+      "path": "sandbox\\test_project\\backend\\app\\main.py",
+      "hash": "bf3539fb5fd61116037e74d9d10f10e1252449f95387875670f75e4b110291ed",
+      "size": 2712,
+      "last_modified": "2026-05-26T12:14:28.463042Z"
+    },
+    "sandbox\\test_project\\frontend\\index.html": {
+      "path": "sandbox\\test_project\\frontend\\index.html",
+      "hash": "f4d26a4e558ad69e1d260e8fdf79707193c8218ff50e53db7d6919b56d791bac",
+      "size": 7829,
+      "last_modified": "2026-05-26T12:14:28.464051Z"
     }
   },
   "test_index": {
@@ -104,67 +459,126 @@
       "path": "pytest.ini",
       "hash": "04e5edee92304ba9698e939406bb126d1e4c0c482511ddc36b1a35db2591c069",
       "size": 198,
-      "last_modified": "2026-05-25T19:07:34.396770Z"
+      "last_modified": "2026-05-26T12:11:38.893083Z"
     },
-    "core/tests/test_orchestrator.py": {
-      "path": "core/tests/test_orchestrator.py",
+    "core\\tests\\test_orchestrator.py": {
+      "path": "core\\tests\\test_orchestrator.py",
       "hash": "86b0a2e0629399a1684f5b91328a299380ade4cc7e060243d7cc7c639b55c474",
       "size": 2418,
-      "last_modified": "2026-05-25T19:17:05.628193Z"
+      "last_modified": "2026-05-26T12:11:38.756825Z"
+    },
+    "projects\\DOS\\backend\\tests\\test_main.py": {
+      "path": "projects\\DOS\\backend\\tests\\test_main.py",
+      "hash": "2bcffff5c45ad88bab7c298627f31606ea7e2a2991e515da3109ebc644f251d0",
+      "size": 3258,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "projects\\test_project\\backend\\tests\\test_main.py": {
+      "path": "projects\\test_project\\backend\\tests\\test_main.py",
+      "hash": "451607e52df7bfa3392e5466ed45dccab92333177c150af6a3530f7702853eac",
+      "size": 1189,
+      "last_modified": "2026-05-26T12:14:28.463042Z"
+    },
+    "sandbox\\DOS\\backend\\tests\\test_main.py": {
+      "path": "sandbox\\DOS\\backend\\tests\\test_main.py",
+      "hash": "2bcffff5c45ad88bab7c298627f31606ea7e2a2991e515da3109ebc644f251d0",
+      "size": 3258,
+      "last_modified": "2026-05-26T12:35:45.238629Z"
+    },
+    "sandbox\\test_project\\backend\\tests\\test_main.py": {
+      "path": "sandbox\\test_project\\backend\\tests\\test_main.py",
+      "hash": "451607e52df7bfa3392e5466ed45dccab92333177c150af6a3530f7702853eac",
+      "size": 1189,
+      "last_modified": "2026-05-26T12:14:28.463042Z"
     }
   },
-  "policy_index": {
-    "02_Arquitectura_Stack_y_Flujos_SDD.md": {
-      "path": "02_Arquitectura_Stack_y_Flujos_SDD.md",
-      "hash": "792df11193be301fe00638a5ae634d8ed578c8f711cf9dfef35c292f4a37ffdd",
-      "size": 13893,
-      "last_modified": "2026-05-25T14:59:22.714507Z"
-    },
-    "03_Agentes_Skills_Herramientas_y_Permisos.md": {
-      "path": "03_Agentes_Skills_Herramientas_y_Permisos.md",
-      "hash": "76fc6f83a11555328f9a902616dbb7b4a2ae5ceaa74ab4535355b44e9e9df490",
-      "size": 17320,
-      "last_modified": "2026-05-25T19:16:56.221372Z"
-    },
-    "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md": {
-      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
-      "hash": "8b4f89c3732e50244143692c0642a7939605c8ece0868517036592fe9bdcce46",
-      "size": 18608,
-      "last_modified": "2026-05-25T14:59:31.470731Z"
-    },
-    "01_Constitucion_y_Especificacion_Fabrica.md": {
-      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
-      "hash": "cc002a83ca2ac06ed4995c957a74c3484159519e2d407ac3725a8ecbb940b67a",
-      "size": 18888,
-      "last_modified": "2026-05-25T14:59:19.422244Z"
-    }
-  },
+  "policy_index": {},
   "learning_index": {
     "Aprendizaje.md": {
       "path": "Aprendizaje.md",
       "hash": "2627ffd2ce6312eccdf18c8b298aa3e079ad71eee33e4af47afefeca4d45673e",
       "size": 3237,
-      "last_modified": "2026-05-25T19:06:53.460285Z"
+      "last_modified": "2026-05-26T12:11:38.871839Z"
+    },
+    "projects\\DOS\\Aprendizaje.md": {
+      "path": "projects\\DOS\\Aprendizaje.md",
+      "hash": "d4b5478de54ae1e03b7f05841c652026078586f81f49952f972944eaf428ea68",
+      "size": 101,
+      "last_modified": "2026-05-26T12:35:45.217961Z"
+    },
+    "projects\\test_project\\Aprendizaje.md": {
+      "path": "projects\\test_project\\Aprendizaje.md",
+      "hash": "2bc3061078162f4f9a90460482bd3b122f0fb4617ea77d155a3c8f4be679d7ee",
+      "size": 73,
+      "last_modified": "2026-05-26T12:14:28.441979Z"
+    },
+    "sandbox\\DOS\\Aprendizaje.md": {
+      "path": "sandbox\\DOS\\Aprendizaje.md",
+      "hash": "d4b5478de54ae1e03b7f05841c652026078586f81f49952f972944eaf428ea68",
+      "size": 101,
+      "last_modified": "2026-05-26T12:35:45.217961Z"
+    },
+    "sandbox\\test_project\\Aprendizaje.md": {
+      "path": "sandbox\\test_project\\Aprendizaje.md",
+      "hash": "2bc3061078162f4f9a90460482bd3b122f0fb4617ea77d155a3c8f4be679d7ee",
+      "size": 73,
+      "last_modified": "2026-05-26T12:14:28.441979Z"
     }
   },
   "evidence_index": {
+    "01_Constitucion_y_Especificacion_Fabrica.md": {
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "hash": "cc002a83ca2ac06ed4995c957a74c3484159519e2d407ac3725a8ecbb940b67a",
+      "size": 18888,
+      "last_modified": "2026-05-26T12:11:38.842104Z"
+    },
+    "02_Arquitectura_Stack_y_Flujos_SDD.md": {
+      "path": "02_Arquitectura_Stack_y_Flujos_SDD.md",
+      "hash": "792df11193be301fe00638a5ae634d8ed578c8f711cf9dfef35c292f4a37ffdd",
+      "size": 13893,
+      "last_modified": "2026-05-26T12:11:38.850125Z"
+    },
+    "03_Agentes_Skills_Herramientas_y_Permisos.md": {
+      "path": "03_Agentes_Skills_Herramientas_y_Permisos.md",
+      "hash": "76fc6f83a11555328f9a902616dbb7b4a2ae5ceaa74ab4535355b44e9e9df490",
+      "size": 17320,
+      "last_modified": "2026-05-26T12:11:38.857074Z"
+    },
+    "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md": {
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "hash": "8b4f89c3732e50244143692c0642a7939605c8ece0868517036592fe9bdcce46",
+      "size": 18608,
+      "last_modified": "2026-05-26T12:11:38.864968Z"
+    },
     "HANDOFF.md": {
       "path": "HANDOFF.md",
-      "hash": "e157ba6d64fbde4a26a1c048171b74a9f419bf5b15ebf61aac0db5d86086056b",
-      "size": 1331,
-      "last_modified": "2026-05-25T19:20:09.603605Z"
+      "hash": "204a09dfd177b286a2336609ab9b42fab761d23debc4d88a8f0240613f0b7f26",
+      "size": 4630,
+      "last_modified": "2026-05-26T12:14:58.686761Z"
     },
-    "projects/EJEMPLO_DOS/especificacion_sistema_inventario_erp.md": {
-      "path": "projects/EJEMPLO_DOS/especificacion_sistema_inventario_erp.md",
+    "projects\\EJEMPLO_DOS\\especificacion_sistema_inventario_erp.md": {
+      "path": "projects\\EJEMPLO_DOS\\especificacion_sistema_inventario_erp.md",
       "hash": "6195f38141f029082a91babd39d52c4f8c5ef40d931276d51b3051ff2cc90c29",
       "size": 39763,
-      "last_modified": "2026-05-25T17:03:28.224424Z"
+      "last_modified": "2026-05-26T12:11:38.819969Z"
     },
-    "projects/EJEMPLO_UNO/sistema_dos.md": {
-      "path": "projects/EJEMPLO_UNO/sistema_dos.md",
+    "projects\\EJEMPLO_UNO\\sistema_dos.md": {
+      "path": "projects\\EJEMPLO_UNO\\sistema_dos.md",
       "hash": "7fa6c56db4064c8674de46975638e8c07564caaffecb3bc048e25deb60f80029",
       "size": 7293,
-      "last_modified": "2026-05-20T13:16:38.955616Z"
+      "last_modified": "2026-05-26T12:11:38.829524Z"
+    },
+    "sandbox\\DOS\\backend\\db.sqlite3": {
+      "path": "sandbox\\DOS\\backend\\db.sqlite3",
+      "hash": "5669f8b09be2b757980f509d19c96d4daa06a1fc5fd4da8b798d1eb9d63d4462",
+      "size": 12288,
+      "last_modified": "2026-05-26T12:35:48.671245Z"
+    },
+    "sandbox\\test_project\\backend\\db.sqlite3": {
+      "path": "sandbox\\test_project\\backend\\db.sqlite3",
+      "hash": "7b500336b2bed3e3440ab8ee76dbe05b6099c1ef104374c1f3c06a82a2baab54",
+      "size": 12288,
+      "last_modified": "2026-05-26T12:14:30.721784Z"
     }
   }
 }
