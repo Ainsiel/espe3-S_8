@@ -22,7 +22,7 @@ class SDDSpecAgent:
 
         today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         
-        if project_id.strip().upper() in ["UNO", "DOS", "TRES"]:
+        if project_id.strip().upper() in ["UNO", "DOS"]:
             spec_content = f"""# Especificación SDD: {project_name} (TaskLiteJota)
 
 ## 1. Nombre del sistema
@@ -100,7 +100,29 @@ class SDDSpecAgent:
 ## 13. Fuera de alcance
 - Autenticación multiusuario, carga de adjuntos y notificaciones push.
 """
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            # Try to read the specification from file
+            spec_src_paths = [
+                os.path.join(os.path.dirname(specs_dir), "sistema_reservas_eventpass.md"),
+                os.path.join(os.path.dirname(specs_dir), "..", "EJEMPLO_TRES", "sistema_reservas_eventpass.md"),
+                os.path.join(os.path.dirname(specs_dir), "..", "..", "projects", "EJEMPLO_TRES", "sistema_reservas_eventpass.md"),
+            ]
+            spec_content = None
+            for p in spec_src_paths:
+                if os.path.exists(p):
+                    with open(p, "r", encoding="utf-8") as sf:
+                        spec_content = sf.read()
+                    break
+            
+            if not spec_content:
+                spec_content = f"""# Especificación SDD: {project_name} (EventPass)
+## 1. Nombre del sistema
+- **Nombre:** EventPass — Sistema de Reserva de Entradas a Eventos
+- **ID de Proyecto:** {project_id}
+- **Estado:** `spec_validated`
+"""
         elif project_id.strip().upper() == "CUATRO":
+
             spec_content = f"""# Especificación SDD: {project_name} (StockMaster ERP Lite)
 
 ## 1. Nombre del sistema

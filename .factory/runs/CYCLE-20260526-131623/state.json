@@ -1,0 +1,60 @@
+{
+  "cycle_id": "CYCLE-20260526-131623",
+  "trace_id": "TRACE-20260526-131623",
+  "work_order_id": "WO-20260526-131623",
+  "project_id": "EJEMPLO_TRES",
+  "project_name": "EventPass — Sistema de Reserva de Entradas a Eventos",
+  "status": "complete",
+  "objective": "Desarrollar un sistema web sencillo para que los usuarios puedan registrarse, iniciar sesión con JWT, explorar un catálogo de eventos disponibles y reservar entradas de forma controlada con persistencia en SQLite, backend FastAPI y frontend React + Bootstrap 5.",
+  "current_phase": "CLOSE",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pass",
+    "requirements_quality": "pass",
+    "plan_valid": "pass",
+    "analyze": "pass",
+    "validation": "pass",
+    "security": "pass",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects\\EJEMPLO_TRES\\specs\\work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects\\EJEMPLO_TRES\\Aprendizaje.md",
+    "spec": "projects\\EJEMPLO_TRES\\specs\\spec.md",
+    "clarifications": "projects\\EJEMPLO_TRES\\specs\\clarifications.md",
+    "checklist": "projects\\EJEMPLO_TRES\\specs\\checklist.md",
+    "plan": "projects\\EJEMPLO_TRES\\specs\\plan.md",
+    "data_model": "projects\\EJEMPLO_TRES\\specs\\data-model.md",
+    "test_plan": "projects\\EJEMPLO_TRES\\specs\\test-plan.md",
+    "tasks": "projects\\EJEMPLO_TRES\\specs\\tasks.md",
+    "analyze": "projects\\EJEMPLO_TRES\\specs\\analyze-report.md",
+    "traceability": "projects\\EJEMPLO_TRES\\specs\\traceability-matrix.md",
+    "backend": "projects\\EJEMPLO_TRES\\backend",
+    "frontend": "projects\\EJEMPLO_TRES\\frontend",
+    "test_report": "projects\\EJEMPLO_TRES\\specs\\test-report.md",
+    "validation": "projects\\EJEMPLO_TRES\\specs\\validation-report.md",
+    "security": "projects\\EJEMPLO_TRES\\specs\\security-review.md",
+    "deployment_plan": "projects\\EJEMPLO_TRES\\specs\\deployment-plan.md",
+    "rollback_plan": "projects\\EJEMPLO_TRES\\specs\\rollback-plan.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {
+    "input_tokens": 13805,
+    "cached_input_tokens": 0,
+    "output_tokens": 13700,
+    "tool_calls": 0,
+    "estimated_cost": 0.005145375
+  },
+  "decisions": [],
+  "risks": [],
+  "errors": []
+}

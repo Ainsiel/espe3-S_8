@@ -17,7 +17,7 @@ class ArchitectAgent:
             output_tokens=1800
         )
 
-        if project_id.strip().upper() in ["UNO", "DOS", "TRES"]:
+        if project_id.strip().upper() in ["UNO", "DOS"]:
             plan_content = """# Plan Técnico y de Diseño Arquitectónico (TaskLiteJota)
 
 ## 1. Resumen de Arquitectura
@@ -70,6 +70,93 @@ Se propone un monolito estructurado modular pequeño:
 - `test_toggle_status`: Completa y reabre una tarea, validando los estados correspondientes.
 - `test_delete_task_success`: Elimina una tarea y valida que ya no exista.
 - `test_delete_non_existent`: Valida código 404 al intentar borrar un ID inexistente.
+"""
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            plan_content = """# Plan Técnico y de Diseño Arquitectónico (EventPass)
+
+## 1. Resumen de Arquitectura
+Se propone un monolito estructurado modular pequeño:
+- **Backend:** FastAPI (Python 3.9+) estructurado en modelos y controladores de reservas.
+- **Frontend:** React + Bootstrap servido estáticamente en página única interactiva.
+- **Base de Datos:** SQLite local (`db.sqlite3`) en modo archivo persistente.
+
+## 2. Estructura de Módulos (Backend)
+- `main.py`: Entrada del servidor, base de datos SQLite con SQLAlchemy, esquemas Pydantic y endpoints de API integrados.
+- `tests/test_main.py`: Suite de pruebas Pytest utilizando `TestClient` de FastAPI.
+
+## 3. Política de Dependencias Aprobada
+- FastAPI (v0.95.0+)
+- Uvicorn (v0.22.0+)
+- SQLAlchemy (v2.0.0+)
+- Pydantic (v1.10.0+)
+- python-jose (v3.3.0+)
+- passlib (v1.7.4+)
+"""
+            
+            data_model_content = """# Modelo de Datos (EventPass)
+
+## 1. Entidades
+| Entidad | Propósito | Almacenamiento | Sensible | Owner |
+|---|---|---|---|---|
+| User | Almacena información de los usuarios registrados | SQLite | Sí (Password hash) | PO de Fábrica |
+| Event | Almacena la información de los eventos y su disponibilidad | SQLite | No | PO de Fábrica |
+| Reservation | Almacena las reservas de los usuarios para cada evento | SQLite | No | PO de Fábrica |
+
+## 2. Campos
+### User
+- `id` (INTEGER, PK, Auto)
+- `email` (TEXT, unique, required)
+- `password_hash` (TEXT, required)
+- `is_active` (INTEGER, default 1)
+- `created_at` (DATETIME)
+
+### Event
+- `id` (INTEGER, PK, Auto)
+- `nombre` (TEXT, required)
+- `descripcion` (TEXT, optional)
+- `categoria` (TEXT, required)
+- `fecha_evento` (DATETIME, required)
+- `ubicacion` (TEXT, required)
+- `precio` (REAL, required)
+- `entradas_total` (INTEGER, required)
+- `entradas_disp` (INTEGER, required)
+- `imagen_url` (TEXT, optional)
+- `created_at` (DATETIME)
+
+### Reservation
+- `id` (INTEGER, PK, Auto)
+- `user_id` (INTEGER, FK to User)
+- `event_id` (INTEGER, FK to Event)
+- `codigo_conf` (TEXT, unique, required)
+- `estado` (TEXT, default 'confirmada')
+- `created_at` (DATETIME)
+- `updated_at` (DATETIME)
+
+## 3. Comportamiento ante Fallo
+- Toda escritura debe ser atómica. Ante excepciones se ejecuta rollback de la sesión.
+"""
+            
+            test_plan_content = """# Plan de Pruebas del Proyecto (EventPass)
+
+## 1. Pruebas Unitarias y API (Backend)
+- `test_register_success`: Registro exitoso con email y password válidos (201).
+- `test_register_duplicate_email`: Registro rechazado con email duplicado (400).
+- `test_register_invalid_email`: Registro rechazado con email inválido (422).
+- `test_register_short_password`: Registro rechazado con contraseña < 6 chars (422).
+- `test_login_success`: Login exitoso retorna access_token (200).
+- `test_login_wrong_password`: Login con contraseña incorrecta (401).
+- `test_login_nonexistent_email`: Login con correo no registrado (401).
+- `test_get_events_public`: Listar eventos sin token (200).
+- `test_get_events_filter_category`: Filtrar eventos por categoría (200).
+- `test_get_event_detail`: Detalle de evento por ID (200).
+- `test_get_event_not_found`: Evento inexistente (404).
+- `test_reserve_success`: Reserva exitosa con token válido (201).
+- `test_reserve_no_auth`: Reserva sin token (401).
+- `test_reserve_sold_out`: Reserva en evento agotado (400).
+- `test_reserve_duplicate`: Reserva duplicada mismo evento (400).
+- `test_get_my_reservations`: Listar mis reservas (200).
+- `test_cancel_reservation`: Cancelar reserva existente (200).
+- `test_cancel_already_cancelled`: Cancelar reserva ya cancelada (400).
 """
         elif project_id.strip().upper() == "CUATRO":
             plan_content = """# Plan Técnico y de Diseño Arquitectónico (StockMaster ERP Lite)

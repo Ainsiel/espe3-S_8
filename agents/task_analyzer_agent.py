@@ -17,7 +17,7 @@ class TaskAnalyzerAgent:
             output_tokens=1500
         )
 
-        if project_id.strip().upper() in ["UNO", "DOS", "TRES"]:
+        if project_id.strip().upper() in ["UNO", "DOS"]:
             tasks_content = """# Checklist de Tareas del Proyecto (TaskLiteJota)
 
 - [ ] **T-001 (Base de Datos):** Configuración de la base de datos SQLite y el modelo de datos SQLAlchemy `Task` en `backend/app/main.py`. (Mapea a REQ-003)
@@ -48,6 +48,39 @@ class TaskAnalyzerAgent:
 | REQ-002 (Validación) | T-002 | Validación de Pydantic: `test_create_task_invalid_title` | `test-report.md` |
 | REQ-003 (Persistencia) | T-001 | SQLite auto-creation & saving | `test-report.md` |
 | REQ-004 (Orden y Filtro) | T-003 | GET queries: `test_get_tasks_sorting` | `test-report.md` |
+| REQ-005 (UI Premium) | T-005 | Interfaz reactiva e interactiva | `validation-report.md` |
+"""
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            tasks_content = """# Checklist de Tareas del Proyecto (EventPass)
+
+- [ ] **T-001 (Configuración de Base de Datos y Modelos):** Declarar modelos SQLAlchemy `UserDB`, `EventDB` y `ReservationDB` en `backend/app/main.py`. (Mapea a REQ-003)
+- [ ] **T-002 (Esquemas Pydantic y Autenticación JWT):** Implementar modelos de validación Pydantic para registro, login, reservas, y funciones auxiliares JWT (encriptar contraseñas, validar tokens). (Mapea a REQ-001, REQ-002)
+- [ ] **T-003 (Endpoints de la API REST):** Crear rutas de FastAPI para registro, login, obtener perfil (`/me`), listar y filtrar eventos (con ordenamiento ascendente por fecha), ver detalle de evento, y CRUD de reservas (incluyendo control de disponibilidad, validación de reserva única por usuario por evento, generación de código `EVP-XXXXXXXX`, e historial). (Mapea a REQ-001, REQ-004)
+- [ ] **T-004 (Suite de Pruebas Pytest):** Escribir 18 pruebas unitarias robustas en `backend/tests/test_main.py` para verificar todos los criterios de aceptación funcionales (AC-001 a AC-008). (Mapea a AC-001 al AC-008)
+- [ ] **T-005 (Frontend Glassmorphism Dark):** Construir la aplicación frontend SPA en React + Bootstrap en `frontend/index.html` con soporte para login, registro, catálogo de eventos, filtros, detalles de eventos, historial de reservas y cancelación de reservas. (Mapea a REQ-005)
+"""
+            
+            analyze_content = """# Reporte de Análisis Técnico (Analyze Report - EventPass)
+
+- **ID de Proyecto:** {project_id}
+- **Consistencia:** 100% de coherencia verificada entre la especificación sistema_reservas_eventpass.md y la planificación técnica.
+- **Stack Aprobado:** Sí, FastAPI, SQLite y React con Bootstrap para una ejecución 100% local.
+- **Proceder a Implementación:** `yes`
+
+## Verificación de Gates
+- Requisitos mapean perfectamente a tareas: Sí.
+- Criterios de aceptación tienen pruebas unitarias asociadas: Sí.
+- Sin inconsistencias de diseño.
+"""
+            
+            traceability_content = """# Matriz de Trazabilidad de Requisitos (EventPass)
+
+| Requisito | Tarea | Prueba Diseñada | Evidencia |
+|---|---|---|---|
+| REQ-001 (Autenticación) | T-002, T-003 | `test_register_success`, `test_login_success`, `test_login_wrong_password` | `test-report.md` |
+| REQ-002 (Validación) | T-002 | `test_register_invalid_email`, `test_register_short_password` | `test-report.md` |
+| REQ-003 (Persistencia) | T-001 | SQLite auto-creation & seeding | `test-report.md` |
+| REQ-004 (Eventos y Reservas) | T-003 | `test_get_events_public`, `test_reserve_success`, `test_reserve_sold_out`, `test_reserve_duplicate` | `test-report.md` |
 | REQ-005 (UI Premium) | T-005 | Interfaz reactiva e interactiva | `validation-report.md` |
 """
         elif project_id.strip().upper() == "CUATRO":

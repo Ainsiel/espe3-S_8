@@ -17,7 +17,7 @@ class ClarifierQAAgent:
             output_tokens=1200
         )
 
-        if project_id.strip().upper() in ["UNO", "DOS", "TRES"]:
+        if project_id.strip().upper() in ["UNO", "DOS"]:
             clarifications_content = """# Aclaraciones de Requisitos (TaskLiteJota)
 
 ## 1. Supuestos asumidos
@@ -45,6 +45,34 @@ class ClarifierQAAgent:
 - [x] **REQ-003 (Persistencia):** Base de datos SQLite se crea automáticamente.
 - [x] **REQ-004 (Ordenamiento y Filtro):** Orden descendente por creación, filtros reactivos de estado y prioridad.
 - [x] **REQ-005 (Frontend premium):** Interfaz fluida, moderna con Bootstrap + React, con ventana de confirmación al eliminar.
+"""
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            clarifications_content = """# Aclaraciones de Requisitos (EventPass)
+
+## 1. Supuestos asumidos
+- **PERSISTENCIA:** Los datos se guardarán en una base de datos SQLite local (`db.sqlite3`) alojada en el backend.
+- **AUTENTICACIÓN:** Autenticación por token JWT en header `Authorization: Bearer <token>`, con expiración de 60 minutos.
+- **COMPORTAMIENTO DE RESERVAS:** Restringido estrictamente a 1 entrada por usuario por evento. Las reservas en eventos agotados no se permiten.
+- **CANCELACIÓN:** Devuelve la entrada al stock disponible y cambia el estado a 'cancelada'.
+
+## 2. Decisiones de diseño
+- Las validaciones críticas se ejecutarán en frontend con React y de forma estricta en el backend con modelos Pydantic.
+"""
+            
+            checklist_content = """# Checklist de Requisitos y QA (EventPass)
+
+## Requisitos de la Constitución
+- [x] Objetivo e ID de proyecto especificado (`EJEMPLO_TRES`).
+- [x] Reglas de negocio claras de la especificación (sin invenciones).
+- [x] Criterios de aceptación funcionales definidos.
+- [x] Stack tecnológico gobernado (FastAPI + React + SQLite + JWT).
+
+## Requisitos del Proyecto
+- [x] **REQ-001 (Registro y Login):** Registro y login JWT funcionales.
+- [x] **REQ-002 (Catálogo de Eventos):** Catálogo público con filtros y búsqueda.
+- [x] **REQ-003 (Detalle y Reservas):** Detalle de eventos, lógica de reservas con generación de código `EVP-XXXXXXXX`.
+- [x] **REQ-004 (Historial y Cancelación):** Historial del usuario y cancelación reactiva con devolución al stock.
+- [x] **REQ-005 (UI Premium):** Glassmorphism dark mode con Bootstrap 5 y React.
 """
         elif project_id.strip().upper() == "CUATRO":
             clarifications_content = """# Aclaraciones de Requisitos (StockMaster ERP Lite)

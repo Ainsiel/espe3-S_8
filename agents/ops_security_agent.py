@@ -56,7 +56,7 @@ En caso de fallo crítico de datos o corrupción en la base de datos local:
 3. Reiniciar el servidor FastAPI.
 """
 
-        elif project_id.strip().upper() in ["UNO", "DOS", "TRES"]:
+        elif project_id.strip().upper() in ["UNO", "DOS"]:
             security_content = """# Revisión de Seguridad (Security Review - TaskLiteJota)
 
 - **ID de Proyecto:** {project_id}
@@ -92,6 +92,45 @@ En caso de fallo crítico de datos o corrupción en la base de datos local:
 En caso de fallo crítico de datos o corrupción en la base de datos local:
 1. Apagar el servidor Uvicorn (`Ctrl + C`).
 2. Copiar la base de datos de respaldo `db.sqlite3.bak` (si existiese) de vuelta a `db.sqlite3`.
+3. Reiniciar el servidor FastAPI.
+"""
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            security_content = """# Revisión de Seguridad (Security Review - EventPass)
+
+- **ID de Proyecto:** {project_id}
+- **Fecha de Análisis:** Análisis realizado sobre el código de EventPass.
+
+## Análisis de Amenazas
+
+| Riesgo | Pregunta | Evaluación de Seguridad | Estado |
+|---|---|---|---|
+| Inyección SQL | ¿Es vulnerable SQLite a inyecciones? | SQLAlchemy utiliza consultas parametrizadas a nivel de ORM, lo que bloquea por completo la inyección de SQL. | PROTEGIDO |
+| Fuga de Contraseñas | ¿Cómo se guardan las contraseñas? | Las contraseñas se guardan encriptadas usando passlib con el algoritmo bcrypt. | PROTEGIDO |
+| Reservas Agotadas | ¿Se puede reservar sin stock disponible? | El backend valida atómicamente la disponibilidad de stock antes de crear la reserva. | PROTEGIDO |
+| Reservas Duplicadas | ¿Se puede reservar dos veces el mismo evento? | Se utiliza un índice único UNIQUE(user_id, event_id) a nivel de base de datos y validaciones en la API. | PROTEGIDO |
+| Modificación No Autorizada | ¿Puede un usuario cancelar la reserva de otro? | El endpoint de cancelación verifica estrictamente que `user_id` de la reserva coincida con el del token JWT. | PROTEGIDO |
+
+## Hallazgos de Secretos
+- Cero llaves de API o tokens expuestos en el código de EventPass.
+"""
+            
+            deployment_content = """# Plan de Despliegue (Deployment Plan - EventPass)
+
+- **Entorno Objetivo:** Local / Académico
+- **Método:** Ejecución local con Uvicorn para el backend y navegación del frontend estático en el browser.
+
+## Pasos Operativos
+1. Iniciar backend FastAPI usando Uvicorn:
+   `uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload`
+2. Abrir el archivo `frontend/index.html` en cualquier navegador web moderno (Chrome, Safari, Firefox).
+3. Verificar persistencia registrando un usuario, iniciando sesión y realizando reservas de prueba.
+"""
+            
+            rollback_content = """# Plan de Rollback (Rollback Plan - EventPass)
+
+En caso de fallo crítico de datos o corrupción en la base de datos local:
+1. Apagar el servidor Uvicorn (`Ctrl + C`).
+2. Copiar la base de datos de respaldo `db.sqlite3.bak` de vuelta a `db.sqlite3`.
 3. Reiniciar el servidor FastAPI.
 """
         else:

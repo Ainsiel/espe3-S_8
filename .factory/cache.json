@@ -9,7 +9,8 @@
     "dd130d506822cd80e0a8c71a83ac4cd68d80272462bb713e3646f78e4c3e19a7_v1": "Desarrollar una aplicación web responsiva para gestionar inventario avanzado con lógica tipo ERP, permitiendo controlar productos, bodegas, stock, movimientos, alertas, dashboard ejecutivo y reportes operacionales.",
     "e1b3679848554491226adf47154c7635d2e71862397cc61b8bb23ac037feeceb_v1": "StockMaster ERP Lite — Sistema Web Avanzado de Inventario, Dashboard y Reportes",
     "46d52f69d361f9dffa768f8c668df7557396894dfa434b8b67ed118abeda4b6f_v1": "Desarrollar un gestor personal de tareas con persistencia en SQLite, backend FastAPI y frontend React",
-    "8f64b6a02d0da11b46a1f16ce2b7d7ee41cdcf4c53f3da110298e17261f9e482_v1": "Desarrollar un sistema web para administrar tareas personales: crear, listar, editar, completar/reabrir, eliminar y filtrar tareas. Backend FastAPI con SQLite, frontend React + Bootstrap. Validar titulo 3-100 chars, prioridades baja/media/alta, estados pendiente/completada. Orden descendente por fecha de creacion."
+    "8f64b6a02d0da11b46a1f16ce2b7d7ee41cdcf4c53f3da110298e17261f9e482_v1": "Desarrollar un sistema web para administrar tareas personales: crear, listar, editar, completar/reabrir, eliminar y filtrar tareas. Backend FastAPI con SQLite, frontend React + Bootstrap. Validar titulo 3-100 chars, prioridades baja/media/alta, estados pendiente/completada. Orden descendente por fecha de creacion.",
+    "88ebae41b0abc468fec8d5313375358ed87ba850dd6557aa42663a16132d3f94_v1": "Desarrollar un sistema web sencillo para que los usuarios puedan registrarse, iniciar sesión con JWT, explorar un catálogo de eventos disponibles y reservar entradas de forma controlada con persistencia en SQLite, backend FastAPI y frontend React + Bootstrap 5."
   },
   "tool_result_cache": {},
   "test_cache": {

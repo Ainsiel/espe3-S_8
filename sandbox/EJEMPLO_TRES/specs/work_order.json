@@ -1,0 +1,7 @@
+{
+  "work_order_id": "WO-20260526-131623",
+  "project_id": "EJEMPLO_TRES",
+  "project_name": "EventPass — Sistema de Reserva de Entradas a Eventos",
+  "requirement": "Desarrollar un sistema web sencillo para que los usuarios puedan registrarse, iniciar sesión con JWT, explorar un catálogo de eventos disponibles y reservar entradas de forma controlada con persistencia en SQLite, backend FastAPI y frontend React + Bootstrap 5.",
+  "started_at": "2026-05-26T13:16:23.956497Z"
+}

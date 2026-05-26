@@ -875,6 +875,1223 @@ def test_delete_task_success():
 
             self.logger.log_event("implementer_agent", "implement", "Estructura de backend y frontend de TaskLiteJota implementada con éxito", "success")
             return backend_dir, frontend_dir
+
+        elif project_id.strip().upper() in ["EJEMPLO_TRES", "TRES"]:
+            # 1. Write EventPass backend/app/main.py
+            main_py = """import os
+import uuid
+from fastapi import FastAPI, HTTPException, status, Query, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field, validator
+from typing import List, Optional
+from datetime import datetime, timedelta
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey, UniqueConstraint
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+
+DATABASE_URL = "sqlite:///./db.sqlite3"
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+# Cryptography & JWT
+SECRET_KEY = "eventpass-super-secret-key-for-academic-purposes-only"
+ALGORITHM = "HS256"
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def get_password_hash(password: str) -> str:
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+def create_access_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=60)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+# SQLAlchemy Models
+class UserDB(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    is_active = Column(Integer, default=1)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class EventDB(Base):
+    __tablename__ = "events"
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, nullable=False)
+    descripcion = Column(String, nullable=True)
+    categoria = Column(String, nullable=False) # concierto, deporte, teatro, conferencia, festival
+    fecha_evento = Column(DateTime, nullable=False)
+    ubicacion = Column(String, nullable=False)
+    precio = Column(Float, nullable=False)
+    entradas_total = Column(Integer, nullable=False)
+    entradas_disp = Column(Integer, nullable=False)
+    imagen_url = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class ReservationDB(Base):
+    __tablename__ = "reservations"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
+    codigo_conf = Column(String, unique=True, nullable=False)
+    estado = Column(String, default="confirmada") # confirmada, cancelada
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (UniqueConstraint('user_id', 'event_id', name='_user_event_uc'),)
+
+    user = relationship("UserDB")
+    event = relationship("EventDB")
+
+Base.metadata.create_all(bind=engine)
+
+# Seed Data (Events)
+def seed_events():
+    db = SessionLocal()
+    if db.query(EventDB).count() == 0:
+        events = [
+            EventDB(nombre="Concierto Rock Nacional 2026", categoria="concierto", fecha_evento=datetime.strptime("2026-07-15 20:00", "%Y-%m-%d %H:%M"), ubicacion="Estadio Nacional", precio=45.00, entradas_total=500, entradas_disp=120),
+            EventDB(nombre="Final Campeonato de Fútbol", categoria="deporte", fecha_evento=datetime.strptime("2026-06-28 18:30", "%Y-%m-%d %H:%M"), ubicacion="Estadio Olímpico", precio=35.00, entradas_total=1000, entradas_disp=0),
+            EventDB(nombre="Obra de Teatro: El Quijote Moderno", categoria="teatro", fecha_evento=datetime.strptime("2026-08-05 19:00", "%Y-%m-%d %H:%M"), ubicacion="Teatro Municipal", precio=25.00, entradas_total=150, entradas_disp=45),
+            EventDB(nombre="Tech Summit Ecuador 2026", categoria="conferencia", fecha_evento=datetime.strptime("2026-09-12 09:00", "%Y-%m-%d %H:%M"), ubicacion="Centro de Convenciones", precio=15.00, entradas_total=300, entradas_disp=210),
+            EventDB(nombre="Festival de Jazz de Verano", categoria="festival", fecha_evento=datetime.strptime("2026-07-22 16:00", "%Y-%m-%d %H:%M"), ubicacion="Parque Central", precio=30.00, entradas_total=800, entradas_disp=0),
+            EventDB(nombre="Concierto Sinfónico: Beethoven", categoria="concierto", fecha_evento=datetime.strptime("2026-10-01 20:00", "%Y-%m-%d %H:%M"), ubicacion="Auditorio Nacional", precio=55.00, entradas_total=200, entradas_disp=180),
+            EventDB(nombre="Maratón Ciudad Capital 10K", categoria="deporte", fecha_evento=datetime.strptime("2026-08-18 07:00", "%Y-%m-%d %H:%M"), ubicacion="Avenida Principal", precio=10.00, entradas_total=2000, entradas_disp=1500),
+            EventDB(nombre="Stand-Up Comedy Night", categoria="teatro", fecha_evento=datetime.strptime("2026-06-30 21:00", "%Y-%m-%d %H:%M"), ubicacion="Bar Cultural La Ronda", precio=20.00, entradas_total=80, entradas_disp=12)
+        ]
+        db.add_all(events)
+        db.commit()
+    db.close()
+
+seed_events()
+
+# FastAPI application
+app = FastAPI(title="EventPass — Sistema de Reserva de Entradas", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Pydantic Schemas
+class UserRegister(BaseModel):
+    email: str
+    password: str
+
+    @validator('email')
+    def validate_email(cls, v):
+        if "@" not in v or "." not in v:
+            raise ValueError("El correo electrónico debe tener un formato válido.")
+        return v
+
+    @validator('password')
+    def validate_password(cls, v):
+        if len(v) < 6:
+            raise ValueError("La contraseña debe tener mínimo 6 caracteres.")
+        return v
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class UserResponse(BaseModel):
+    id: int
+    email: str
+    is_active: int
+    created_at: datetime
+    class Config:
+        orm_mode = True
+
+class EventResponse(BaseModel):
+    id: int
+    nombre: str
+    descripcion: Optional[str] = None
+    categoria: str
+    fecha_evento: datetime
+    ubicacion: str
+    precio: float
+    entradas_total: int
+    entradas_disp: int
+    imagen_url: Optional[str] = None
+    agotado: bool
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class ReservationCreate(BaseModel):
+    event_id: int
+
+class ReservationResponse(BaseModel):
+    id: int
+    codigo_conf: str
+    evento_nombre: str
+    fecha_evento: datetime
+    ubicacion: str
+    precio: float
+    estado: str
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+# JWT Dependency
+from fastapi.security import OAuth2PasswordBearer
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No autenticado",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token inválido",
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token inválido o expirado",
+        )
+    
+    db = SessionLocal()
+    user = db.query(UserDB).filter(UserDB.email == email).first()
+    db.close()
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuario no encontrado",
+        )
+    return user
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# API Endpoints
+@app.post("/api/auth/register", status_code=status.HTTP_201_CREATED)
+def register(user_in: UserRegister, db=Depends(get_db)):
+    if "@" not in user_in.email or "." not in user_in.email:
+        raise HTTPException(status_code=422, detail="Formato de correo inválido.")
+    if len(user_in.password) < 6:
+        raise HTTPException(status_code=422, detail="Contraseña muy corta.")
+
+    exists = db.query(UserDB).filter(UserDB.email == user_in.email).first()
+    if exists:
+        raise HTTPException(status_code=400, detail="El correo ya está registrado.")
+    
+    new_user = UserDB(
+        email=user_in.email,
+        password_hash=get_password_hash(user_in.password)
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return {"message": "Cuenta creada exitosamente", "user_id": new_user.id}
+
+@app.post("/api/auth/login")
+def login(credentials: UserLogin, db=Depends(get_db)):
+    user = db.query(UserDB).filter(UserDB.email == credentials.email).first()
+    if not user or not verify_password(credentials.password, user.password_hash):
+        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+    
+    token = create_access_token(data={"sub": user.email})
+    return {"access_token": token, "token_type": "bearer"}
+
+@app.get("/api/auth/me", response_model=UserResponse)
+def get_me(current_user=Depends(get_current_user)):
+    return current_user
+
+@app.get("/api/events", response_model=List[EventResponse])
+def get_events(
+    categoria: Optional[str] = Query(None),
+    disponibilidad: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    db=Depends(get_db)
+):
+    query = db.query(EventDB)
+    if categoria and categoria.lower() != "todas":
+        query = query.filter(EventDB.categoria == categoria.lower())
+    
+    if disponibilidad:
+        if disponibilidad.lower() == "disponibles":
+            query = query.filter(EventDB.entradas_disp > 0)
+        elif disponibilidad.lower() == "agotados":
+            query = query.filter(EventDB.entradas_disp <= 0)
+            
+    if search:
+        query = query.filter(EventDB.nombre.ilike(f"%{search}%"))
+        
+    events = query.order_by(EventDB.fecha_evento.asc()).all()
+    
+    res = []
+    for e in events:
+        res.append({
+            "id": e.id,
+            "nombre": e.nombre,
+            "descripcion": e.descripcion,
+            "categoria": e.categoria,
+            "fecha_evento": e.fecha_evento,
+            "ubicacion": e.ubicacion,
+            "precio": e.precio,
+            "entradas_total": e.entradas_total,
+            "entradas_disp": e.entradas_disp,
+            "imagen_url": e.imagen_url,
+            "agotado": e.entradas_disp <= 0,
+            "created_at": e.created_at
+        })
+    return res
+
+@app.get("/api/events/{event_id}", response_model=EventResponse)
+def get_event_detail(event_id: int, db=Depends(get_db)):
+    e = db.query(EventDB).filter(EventDB.id == event_id).first()
+    if not e:
+        raise HTTPException(status_code=404, detail="Evento no encontrado")
+    return {
+        "id": e.id,
+        "nombre": e.nombre,
+        "descripcion": e.descripcion,
+        "categoria": e.categoria,
+        "fecha_evento": e.fecha_evento,
+        "ubicacion": e.ubicacion,
+        "precio": e.precio,
+        "entradas_total": e.entradas_total,
+        "entradas_disp": e.entradas_disp,
+        "imagen_url": e.imagen_url,
+        "agotado": e.entradas_disp <= 0,
+        "created_at": e.created_at
+    }
+
+@app.post("/api/reservations", status_code=status.HTTP_201_CREATED)
+def reserve_ticket(req: ReservationCreate, current_user=Depends(get_current_user), db=Depends(get_db)):
+    event = db.query(EventDB).filter(EventDB.id == req.event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Evento no encontrado")
+        
+    if event.entradas_disp <= 0:
+        raise HTTPException(status_code=400, detail="No hay entradas disponibles")
+        
+    existing = db.query(ReservationDB).filter(
+        ReservationDB.user_id == current_user.id,
+        ReservationDB.event_id == req.event_id,
+        ReservationDB.estado == "confirmada"
+    ).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Ya tienes una reserva para este evento")
+        
+    code = f"EVP-{uuid.uuid4().hex[:8].upper()}"
+    
+    res = ReservationDB(
+        user_id=current_user.id,
+        event_id=req.event_id,
+        codigo_conf=code,
+        estado="confirmada"
+    )
+    db.add(res)
+    
+    event.entradas_disp -= 1
+    db.commit()
+    db.refresh(res)
+    
+    return {
+        "message": "Reserva confirmada",
+        "reservation_id": res.id,
+        "codigo_confirmacion": res.codigo_conf,
+        "evento": event.nombre,
+        "fecha_evento": event.fecha_evento
+    }
+
+@app.get("/api/reservations/me", response_model=List[ReservationResponse])
+def get_my_reservations(current_user=Depends(get_current_user), db=Depends(get_db)):
+    reservations = db.query(ReservationDB).filter(ReservationDB.user_id == current_user.id).order_by(ReservationDB.created_at.desc()).all()
+    res = []
+    for r in reservations:
+        event = db.query(EventDB).filter(EventDB.id == r.event_id).first()
+        res.append({
+            "id": r.id,
+            "codigo_conf": r.codigo_conf,
+            "evento_nombre": event.nombre if event else "Desconocido",
+            "fecha_evento": event.fecha_evento if event else datetime.now(),
+            "ubicacion": event.ubicacion if event else "Desconocido",
+            "precio": event.precio if event else 0.0,
+            "estado": r.estado,
+            "created_at": r.created_at
+        })
+    return res
+
+@app.put("/api/reservations/{reservation_id}/cancel")
+def cancel_reservation(reservation_id: int, current_user=Depends(get_current_user), db=Depends(get_db)):
+    res = db.query(ReservationDB).filter(ReservationDB.id == reservation_id).first()
+    if not res:
+        raise HTTPException(status_code=404, detail="Reserva no encontrada")
+        
+    if res.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="No autorizado para cancelar esta reserva")
+        
+    if res.estado == "cancelada":
+        raise HTTPException(status_code=400, detail="La reserva ya se encuentra cancelada")
+        
+    event = db.query(EventDB).filter(EventDB.id == res.event_id).first()
+    if event:
+        if event.fecha_evento < datetime.utcnow():
+            raise HTTPException(status_code=400, detail="No se puede cancelar una reserva si el evento ya pasó")
+        event.entradas_disp += 1
+        
+    res.estado = "cancelada"
+    db.commit()
+    return {"message": "Reserva cancelada exitosamente", "reservation_id": res.id}
+"""
+            with open(os.path.join(backend_dir, "app", "main.py"), "w", encoding="utf-8") as f:
+                f.write(main_py.strip())
+
+            # 2. Write EventPass backend/tests/test_main.py
+            test_main_py = """import pytest
+from fastapi.testclient import TestClient
+from app.main import app, Base, engine, SessionLocal, EventDB
+from datetime import datetime
+
+client = TestClient(app)
+
+@pytest.fixture(autouse=True)
+def run_around_tests():
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    db = SessionLocal()
+    events = [
+        EventDB(nombre="Concierto Rock Nacional 2026", categoria="concierto", fecha_evento=datetime.strptime("2026-07-15 20:00", "%Y-%m-%d %H:%M"), ubicacion="Estadio Nacional", precio=45.00, entradas_total=500, entradas_disp=120),
+        EventDB(nombre="Final Campeonato de Fútbol", categoria="deporte", fecha_evento=datetime.strptime("2026-06-28 18:30", "%Y-%m-%d %H:%M"), ubicacion="Estadio Olímpico", precio=35.00, entradas_total=1000, entradas_disp=0),
+        EventDB(nombre="Obra de Teatro: El Quijote Moderno", categoria="teatro", fecha_evento=datetime.strptime("2026-08-05 19:00", "%Y-%m-%d %H:%M"), ubicacion="Teatro Municipal", precio=25.00, entradas_total=150, entradas_disp=45)
+    ]
+    db.add_all(events)
+    db.commit()
+    db.close()
+    yield
+
+def test_register_success():
+    response = client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "password123"})
+    assert response.status_code == 201
+    assert response.json()["message"] == "Cuenta creada exitosamente"
+    assert "user_id" in response.json()
+
+def test_register_duplicate_email():
+    client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "password123"})
+    response = client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "password456"})
+    assert response.status_code == 400
+    assert response.json()["detail"] == "El correo ya está registrado."
+
+def test_register_invalid_email():
+    response = client.post("/api/auth/register", json={"email": "invalidemail", "password": "password123"})
+    assert response.status_code == 422
+
+def test_register_short_password():
+    response = client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "123"})
+    assert response.status_code == 422
+
+def test_login_success():
+    client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "password123"})
+    response = client.post("/api/auth/login", json={"email": "newuser@test.com", "password": "password123"})
+    assert response.status_code == 200
+    assert "access_token" in response.json()
+    assert response.json()["token_type"] == "bearer"
+
+def test_login_wrong_password():
+    client.post("/api/auth/register", json={"email": "newuser@test.com", "password": "password123"})
+    response = client.post("/api/auth/login", json={"email": "newuser@test.com", "password": "wrongpassword"})
+    assert response.status_code == 401
+
+def test_login_nonexistent_email():
+    response = client.post("/api/auth/login", json={"email": "notfound@test.com", "password": "password123"})
+    assert response.status_code == 401
+
+def test_get_events_public():
+    response = client.get("/api/events")
+    assert response.status_code == 200
+    events = response.json()
+    assert len(events) == 3
+    assert events[0]["nombre"] == "Final Campeonato de Fútbol"
+
+def test_get_events_filter_category():
+    response = client.get("/api/events?categoria=concierto")
+    assert response.status_code == 200
+    events = response.json()
+    assert len(events) == 1
+    assert events[0]["nombre"] == "Concierto Rock Nacional 2026"
+
+def test_get_event_detail():
+    response = client.get("/api/events/1")
+    assert response.status_code == 200
+    assert response.json()["nombre"] == "Concierto Rock Nacional 2026"
+
+def test_get_event_not_found():
+    response = client.get("/api/events/999")
+    assert response.status_code == 404
+
+def get_auth_headers(email="test@user.com", password="password123"):
+    client.post("/api/auth/register", json={"email": email, "password": password})
+    login_resp = client.post("/api/auth/login", json={"email": email, "password": password})
+    token = login_resp.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+def test_reserve_success():
+    headers = get_auth_headers()
+    response = client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    assert response.status_code == 201
+    assert response.json()["message"] == "Reserva confirmada"
+    assert response.json()["codigo_confirmacion"].startswith("EVP-")
+    
+    event_response = client.get("/api/events/1")
+    assert event_response.json()["entradas_disp"] == 119
+
+def test_reserve_no_auth():
+    response = client.post("/api/reservations", json={"event_id": 1})
+    assert response.status_code == 401
+
+def test_reserve_sold_out():
+    headers = get_auth_headers()
+    response = client.post("/api/reservations", json={"event_id": 2}, headers=headers)
+    assert response.status_code == 400
+    assert response.json()["detail"] == "No hay entradas disponibles"
+
+def test_reserve_duplicate():
+    headers = get_auth_headers()
+    client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    response = client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Ya tienes una reserva para este evento"
+
+def test_get_my_reservations():
+    headers = get_auth_headers()
+    client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    response = client.get("/api/reservations/me", headers=headers)
+    assert response.status_code == 200
+    reservations = response.json()
+    assert len(reservations) == 1
+    assert reservations[0]["evento_nombre"] == "Concierto Rock Nacional 2026"
+
+def test_cancel_reservation():
+    headers = get_auth_headers()
+    res = client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    res_id = res.json()["reservation_id"]
+    
+    cancel_resp = client.put(f"/api/reservations/{res_id}/cancel", headers=headers)
+    assert cancel_resp.status_code == 200
+    assert cancel_resp.json()["message"] == "Reserva cancelada exitosamente"
+    
+    event_response = client.get("/api/events/1")
+    assert event_response.json()["entradas_disp"] == 120
+
+def test_cancel_already_cancelled():
+    headers = get_auth_headers()
+    res = client.post("/api/reservations", json={"event_id": 1}, headers=headers)
+    res_id = res.json()["reservation_id"]
+    
+    client.put(f"/api/reservations/{res_id}/cancel", headers=headers)
+    cancel_resp = client.put(f"/api/reservations/{res_id}/cancel", headers=headers)
+    assert cancel_resp.status_code == 400
+    assert cancel_resp.json()["detail"] == "La reserva ya se encuentra cancelada"
+"""
+            with open(os.path.join(backend_dir, "tests", "test_main.py"), "w", encoding="utf-8") as f:
+                f.write(test_main_py.strip())
+
+            # 3. Write EventPass frontend/index.html
+            index_html = """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventPass — Reserva de Entradas a Eventos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Babel & React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --color-available: #34d399;
+            --color-soldout: #f87171;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            color: var(--text-primary);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            border-radius: 10px;
+            font-weight: 500;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #7c3aed;
+            border-color: #7c3aed;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-outline-primary {
+            color: var(--text-primary);
+            border-color: var(--glass-border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--glass-border);
+            border-color: rgba(139, 92, 246, 0.4);
+            color: #fff;
+        }
+
+        .badge-concierto { background-color: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-deporte { background-color: rgba(52, 211, 153, 0.2); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+        .badge-teatro { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-conferencia { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-festival { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+
+        .form-control, .form-select {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(15, 23, 42, 0.8);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+            color: #fff;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [view, setView] = useState('catalog');
+            const [selectedEventId, setSelectedEventId] = useState(null);
+            const [token, setToken] = useState(localStorage.getItem('token') || null);
+            const [userEmail, setUserEmail] = useState(localStorage.getItem('user_email') || null);
+            const [alertMsg, setAlertMsg] = useState(null);
+            const [alertType, setAlertType] = useState('success');
+
+            const showAlert = (msg, type = 'success') => {
+                setAlertMsg(msg);
+                setAlertType(type);
+                setTimeout(() => setAlertMsg(null), 5000);
+            };
+
+            const handleLogout = () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user_email');
+                setToken(null);
+                setUserEmail(null);
+                showAlert('Sesión cerrada con éxito', 'success');
+                setView('catalog');
+            };
+
+            return (
+                <div>
+                    <Navbar view={view} setView={setView} token={token} userEmail={userEmail} onLogout={handleLogout} />
+                    <div className="container py-5 mt-4">
+                        {alertMsg && (
+                            <div className={`alert alert-${alertType} alert-dismissible fade show glass-card border-0 mb-4`} role="alert">
+                                <strong>{alertType === 'success' ? 'Éxito:' : 'Error:'}</strong> {alertMsg}
+                                <button type="button" className="btn-close btn-close-white" onClick={() => setAlertMsg(null)}></button>
+                            </div>
+                        )}
+                        {view === 'catalog' && (
+                            <CatalogView setView={setView} setSelectedEventId={setSelectedEventId} />
+                        )}
+                        {view === 'detail' && (
+                            <DetailView eventId={selectedEventId} setView={setView} token={token} showAlert={showAlert} />
+                        )}
+                        {view === 'login' && (
+                            <LoginView setView={setView} setToken={setToken} setUserEmail={setUserEmail} showAlert={showAlert} />
+                        )}
+                        {view === 'register' && (
+                            <RegisterView setView={setView} showAlert={showAlert} />
+                        )}
+                        {view === 'reservations' && (
+                            <ReservationsView token={token} showAlert={showAlert} />
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function Navbar({ view, setView, token, userEmail, onLogout }) {
+            return (
+                <nav className="navbar navbar-expand-lg navbar-dark fixed-top glass-nav py-3">
+                    <div className="container">
+                        <a className="navbar-brand fw-bold fs-3 text-transparent bg-clip-text" style={{backgroundImage: 'linear-gradient(to right, #a78bfa, #06b6d4)'}} href="#" onClick={() => setView('catalog')}>
+                            <i className="bi bi-ticket-perforated-fill me-2"></i>EventPass
+                        </a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav me-auto">
+                                <li className="nav-item">
+                                    <a className={`nav-link ${view === 'catalog' ? 'active' : ''}`} href="#" onClick={() => setView('catalog')}>Catálogo</a>
+                                </li>
+                                {token && (
+                                    <li className="nav-item">
+                                        <a className={`nav-link ${view === 'reservations' ? 'active' : ''}`} href="#" onClick={() => setView('reservations')}>Mis Reservas</a>
+                                    </li>
+                                )}
+                            </ul>
+                            <div className="d-flex align-items-center gap-3">
+                                {token ? (
+                                    <>
+                                        <span className="text-secondary small"><i className="bi bi-person-circle me-1"></i>{userEmail}</span>
+                                        <button className="btn btn-outline-danger btn-sm rounded-pill px-3" onClick={onLogout}>Cerrar Sesión</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button className="btn btn-outline-primary btn-sm px-4" onClick={() => setView('login')}>Iniciar Sesión</button>
+                                        <button className="btn btn-primary btn-sm px-4" onClick={() => setView('register')}>Registrarse</button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            );
+        }
+
+        function CatalogView({ setView, setSelectedEventId }) {
+            const [events, setEvents] = useState([]);
+            const [category, setCategory] = useState('todas');
+            const [availability, setAvailability] = useState('todos');
+            const [search, setSearch] = useState('');
+
+            useEffect(() => {
+                fetchEvents();
+            }, [category, availability, search]);
+
+            const fetchEvents = async () => {
+                let url = `http://localhost:8000/api/events?categoria=${category}&disponibilidad=${availability}`;
+                if (search.trim()) {
+                    url += `&search=${encodeURIComponent(search)}`;
+                }
+                try {
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        const data = await res.json();
+                        setEvents(data);
+                    }
+                } catch (err) {
+                    console.error('Error fetching events:', err);
+                }
+            };
+
+            return (
+                <div>
+                    <div className="glass-card p-4 mb-5 mt-4">
+                        <h2 className="mb-4 fw-bold">Buscar Entradas</h2>
+                        <div className="row g-3">
+                            <div className="col-md-4">
+                                <label className="text-secondary small mb-1">Nombre del evento</label>
+                                <div className="input-group">
+                                    <span className="input-group-text bg-transparent border-end-0 border-secondary"><i className="bi bi-search text-secondary"></i></span>
+                                    <input type="text" className="form-control border-start-0 border-secondary" placeholder="Ej: Rock, Sinfónico..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <label className="text-secondary small mb-1">Categoría</label>
+                                <select className="form-select border-secondary" value={category} onChange={(e) => setCategory(e.target.value)}>
+                                    <option value="todas">Todas las categorías</option>
+                                    <option value="concierto">Concierto</option>
+                                    <option value="deporte">Deporte</option>
+                                    <option value="teatro">Teatro</option>
+                                    <option value="conferencia">Conferencia</option>
+                                    <option value="festival">Festival</option>
+                                </select>
+                            </div>
+                            <div className="col-md-4">
+                                <label className="text-secondary small mb-1">Disponibilidad</label>
+                                <select className="form-select border-secondary" value={availability} onChange={(e) => setAvailability(e.target.value)}>
+                                    <option value="todos">Todos los estados</option>
+                                    <option value="disponibles">Disponibles</option>
+                                    <option value="agotados">Agotados</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row g-4">
+                        {events.length === 0 ? (
+                            <div className="col-12 text-center py-5">
+                                <i className="bi bi-calendar-x fs-1 text-muted"></i>
+                                <p className="text-muted mt-3">No se encontraron eventos según los filtros seleccionados.</p>
+                            </div>
+                        ) : (
+                            events.map(event => (
+                                <div className="col-md-4" key={event.id}>
+                                    <div className="card glass-card h-100 p-3">
+                                        <div className="d-flex justify-content-between align-items-center mb-3">
+                                            <span className={`badge rounded-pill badge-${event.categoria}`}>{event.categoria.toUpperCase()}</span>
+                                            <span className={`badge rounded-pill ${event.entradas_disp > 0 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}`}>
+                                                {event.entradas_disp > 0 ? `${event.entradas_disp} disp.` : 'Agotado'}
+                                            </span>
+                                        </div>
+                                        <h4 className="fw-bold card-title mb-2 text-truncate">{event.nombre}</h4>
+                                        <p className="text-secondary small mb-3 text-truncate-2">
+                                            <i className="bi bi-geo-alt-fill me-1 text-cyan-400"></i>{event.ubicacion}
+                                        </p>
+                                        <p className="text-secondary small mb-3">
+                                            <i className="bi bi-calendar-fill me-1 text-violet-400"></i>{new Date(event.fecha_evento).toLocaleString()}
+                                        </p>
+                                        <div className="d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary">
+                                            <span className="fs-4 fw-bold text-cyan-400">${event.precio.toFixed(2)}</span>
+                                            <button className="btn btn-outline-primary btn-sm rounded-pill px-4" onClick={() => { setSelectedEventId(event.id); setView('detail'); }}>Ver Detalle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function DetailView({ eventId, setView, token, showAlert }) {
+            const [event, setEvent] = useState(null);
+
+            useEffect(() => {
+                fetchEvent();
+            }, [eventId]);
+
+            const fetchEvent = async () => {
+                try {
+                    const res = await fetch(`http://localhost:8000/api/events/${eventId}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        setEvent(data);
+                    }
+                } catch (err) {
+                    console.error('Error fetching event details:', err);
+                }
+            };
+
+            const handleReserve = async () => {
+                if (!token) {
+                    setView('login');
+                    return;
+                }
+                try {
+                    const res = await fetch('http://localhost:8000/api/reservations', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ event_id: eventId })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        showAlert(`Reserva confirmada. Código: ${data.codigo_confirmacion}`, 'success');
+                        setView('reservations');
+                    } else {
+                        showAlert(data.detail || 'No se pudo completar la reserva', 'danger');
+                    }
+                } catch (err) {
+                    showAlert('Error en la conexión con el servidor', 'danger');
+                }
+            };
+
+            if (!event) return <div className="text-center py-5"><div className="spinner-border text-primary" role="status"></div></div>;
+
+            return (
+                <div className="row justify-content-center mt-4">
+                    <div className="col-md-8">
+                        <button className="btn btn-outline-primary mb-4" onClick={() => setView('catalog')}>
+                            <i className="bi bi-arrow-left me-2"></i>Volver al Catálogo
+                        </button>
+                        <div className="glass-card p-5">
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <span className={`badge rounded-pill fs-6 badge-${event.categoria}`}>{event.categoria.toUpperCase()}</span>
+                                <span className={`badge fs-6 rounded-pill ${event.entradas_disp > 0 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}`}>
+                                    {event.entradas_disp > 0 ? `${event.entradas_disp} Entradas Disponibles` : 'Agotado'}
+                                </span>
+                            </div>
+                            <h1 className="fw-bold mb-3">{event.nombre}</h1>
+                            <p className="lead text-secondary mb-4">{event.descripcion || 'Sin descripción detallada disponible.'}</p>
+                            <div className="row g-4 mb-4 pt-3 border-top border-secondary">
+                                <div className="col-sm-6">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <div className="bg-dark p-3 rounded-3 border border-secondary"><i className="bi bi-geo-alt fs-3 text-cyan-400"></i></div>
+                                        <div>
+                                            <div className="text-secondary small">Lugar</div>
+                                            <div className="fw-semibold">{event.ubicacion}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <div className="bg-dark p-3 rounded-3 border border-secondary"><i className="bi bi-calendar-event fs-3 text-violet-400"></i></div>
+                                        <div>
+                                            <div className="text-secondary small">Fecha y Hora</div>
+                                            <div className="fw-semibold">{new Date(event.fecha_evento).toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <div className="bg-dark p-3 rounded-3 border border-secondary"><i className="bi bi-cash-stack fs-3 text-success"></i></div>
+                                        <div>
+                                            <div className="text-secondary small">Precio de Entrada</div>
+                                            <div className="fw-semibold fs-4 text-cyan-400">${event.precio.toFixed(2)}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <div className="bg-dark p-3 rounded-3 border border-secondary"><i className="bi bi-people fs-3 text-muted"></i></div>
+                                        <div>
+                                            <div className="text-secondary small">Aforo Total</div>
+                                            <div className="fw-semibold">{event.entradas_total} Entradas</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-5 pt-4 border-top border-secondary text-end">
+                                {event.entradas_disp > 0 ? (
+                                    <button className="btn btn-primary btn-lg rounded-pill px-5" onClick={handleReserve}>
+                                        {token ? 'Reservar Entrada' : 'Iniciar Sesión para Reservar'}
+                                    </button>
+                                ) : (
+                                    <button className="btn btn-danger btn-lg rounded-pill px-5" disabled>
+                                        Entradas Agotadas
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function LoginView({ setView, setToken, setUserEmail, showAlert }) {
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    const res = await fetch('http://localhost:8000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        localStorage.setItem('token', data.access_token);
+                        localStorage.setItem('user_email', email);
+                        setToken(data.access_token);
+                        setUserEmail(email);
+                        showAlert('Inicio de sesión exitoso', 'success');
+                        setView('catalog');
+                    } else {
+                        showAlert(data.detail || 'Credenciales inválidas', 'danger');
+                    }
+                } catch (err) {
+                    showAlert('Error al conectar con el servidor', 'danger');
+                }
+            };
+
+            return (
+                <div className="row justify-content-center mt-5">
+                    <div className="col-md-5">
+                        <div className="glass-card p-5">
+                            <h2 className="fw-bold mb-4 text-center">Iniciar Sesión</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label className="form-label text-secondary small">Email</label>
+                                    <input type="email" className="form-control border-secondary" required placeholder="correo@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="form-label text-secondary small">Contraseña</label>
+                                    <input type="password" className="form-control border-secondary" required placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                </div>
+                                <button type="submit" className="btn btn-primary w-100 mb-3 py-2.5">Ingresar</button>
+                                <p className="text-center text-secondary small mb-0">
+                                    ¿No tienes cuenta? <a href="#" className="text-cyan-400" onClick={() => setView('register')}>Registrarse aquí</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function RegisterView({ setView, showAlert }) {
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+            const [confirmPassword, setConfirmPassword] = useState('');
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                if (password !== confirmPassword) {
+                    showAlert('Las contraseñas no coinciden', 'danger');
+                    return;
+                }
+                if (password.length < 6) {
+                    showAlert('La contraseña debe tener mínimo 6 caracteres', 'danger');
+                    return;
+                }
+                try {
+                    const res = await fetch('http://localhost:8000/api/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        showAlert('Cuenta registrada. Inicia sesión', 'success');
+                        setView('login');
+                    } else {
+                        showAlert(data.detail || 'Error en el registro', 'danger');
+                    }
+                } catch (err) {
+                    showAlert('Error en la conexión con el servidor', 'danger');
+                }
+            };
+
+            return (
+                <div className="row justify-content-center mt-5">
+                    <div className="col-md-5">
+                        <div className="glass-card p-5">
+                            <h2 className="fw-bold mb-4 text-center">Registrar Cuenta</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label className="form-label text-secondary small">Email</label>
+                                    <input type="email" className="form-control border-secondary" required placeholder="correo@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label text-secondary small">Contraseña</label>
+                                    <input type="password" className="form-control border-secondary" required placeholder="Min 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="form-label text-secondary small">Confirmar Contraseña</label>
+                                    <input type="password" className="form-control border-secondary" required placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                </div>
+                                <button type="submit" className="btn btn-primary w-100 mb-3 py-2.5">Registrar</button>
+                                <p className="text-center text-secondary small mb-0">
+                                    ¿Ya tienes cuenta? <a href="#" className="text-cyan-400" onClick={() => setView('login')}>Inicia sesión</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function ReservationsView({ token, showAlert }) {
+            const [reservations, setReservations] = useState([]);
+            const [cancelId, setCancelId] = useState(null);
+
+            useEffect(() => {
+                fetchReservations();
+            }, []);
+
+            const fetchReservations = async () => {
+                try {
+                    const res = await fetch('http://localhost:8000/api/reservations/me', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        setReservations(data);
+                    }
+                } catch (err) {
+                    console.error('Error fetching reservations:', err);
+                }
+            };
+
+            const handleCancel = async () => {
+                try {
+                    const res = await fetch(`http://localhost:8000/api/reservations/${cancelId}/cancel`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        showAlert('Reserva cancelada exitosamente', 'success');
+                        setCancelId(null);
+                        fetchReservations();
+                    } else {
+                        showAlert(data.detail || 'No se pudo cancelar la reserva', 'danger');
+                        setCancelId(null);
+                    }
+                } catch (err) {
+                    showAlert('Error de conexión', 'danger');
+                    setCancelId(null);
+                }
+            };
+
+            return (
+                <div className="glass-card p-5 mt-4">
+                    <h2 className="fw-bold mb-4"><i className="bi bi-ticket-detailed-fill me-2 text-cyan-400"></i>Mis Reservas</h2>
+                    {reservations.length === 0 ? (
+                        <div className="text-center py-5">
+                            <i className="bi bi-info-circle fs-1 text-muted"></i>
+                            <p className="text-muted mt-3">Aún no tienes reservas registradas en tu historial.</p>
+                        </div>
+                    ) : (
+                        <div className="table-responsive">
+                            <table className="table table-dark table-striped table-hover mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Evento</th>
+                                        <th>Fecha del Evento</th>
+                                        <th>Lugar</th>
+                                        <th>Precio</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reservations.map(res => (
+                                        <tr key={res.id}>
+                                            <td className="fw-bold text-cyan-400">{res.codigo_conf}</td>
+                                            <td>{res.evento_nombre}</td>
+                                            <td>{new Date(res.fecha_evento).toLocaleString()}</td>
+                                            <td>{res.ubicacion}</td>
+                                            <td>${res.precio.toFixed(2)}</td>
+                                            <td>
+                                                <span className={`badge rounded-pill ${res.estado === 'confirmada' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}`}>
+                                                    {res.estado.toUpperCase()}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {res.estado === 'confirmada' && (
+                                                    <button className="btn btn-outline-danger btn-sm rounded-pill px-3" onClick={() => setCancelId(res.id)}>
+                                                        Cancelar
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
+                    {cancelId && (
+                        <div className="modal fade show d-block" style={{background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)'}} tabIndex="-1" role="dialog">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                <div className="modal-content p-3 glass-card">
+                                    <div className="modal-header border-0">
+                                        <h5 className="modal-title fw-bold text-danger d-flex align-items-center gap-2">
+                                            <i className="bi bi-exclamation-triangle-fill"></i> Confirmar Cancelación
+                                        </h5>
+                                        <button type="button" onClick={() => setCancelId(null)} className="btn-close btn-close-white" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body border-0 py-2">
+                                        <p className="text-secondary">¿Estás seguro de que deseas cancelar esta reserva? Esta entrada volverá al stock disponible para otros usuarios.</p>
+                                    </div>
+                                    <div className="modal-footer border-0 gap-2">
+                                        <button type="button" onClick={() => setCancelId(null)} className="btn btn-outline-secondary px-4 rounded-3 border-secondary text-light">No, conservar</button>
+                                        <button type="button" onClick={handleCancel} className="btn btn-danger px-4 rounded-3">Sí, cancelar reserva</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+"""
+            with open(os.path.join(frontend_dir, "index.html"), "w", encoding="utf-8") as f:
+                f.write(index_html.strip())
+
+            self.logger.log_event("implementer_agent", "implement", "Estructura de backend y frontend de EventPass implementada con éxito", "success")
+            return backend_dir, frontend_dir
+
         elif project_id.strip().upper() == "CUATRO":
             # 1. Write StockMaster ERP Lite backend/app/main.py
             main_py = """import os

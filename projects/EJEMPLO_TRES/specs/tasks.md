@@ -1,0 +1,7 @@
+# Checklist de Tareas del Proyecto (EventPass)
+
+- [ ] **T-001 (Configuración de Base de Datos y Modelos):** Declarar modelos SQLAlchemy `UserDB`, `EventDB` y `ReservationDB` en `backend/app/main.py`. (Mapea a REQ-003)
+- [ ] **T-002 (Esquemas Pydantic y Autenticación JWT):** Implementar modelos de validación Pydantic para registro, login, reservas, y funciones auxiliares JWT (encriptar contraseñas, validar tokens). (Mapea a REQ-001, REQ-002)
+- [ ] **T-003 (Endpoints de la API REST):** Crear rutas de FastAPI para registro, login, obtener perfil (`/me`), listar y filtrar eventos (con ordenamiento ascendente por fecha), ver detalle de evento, y CRUD de reservas (incluyendo control de disponibilidad, validación de reserva única por usuario por evento, generación de código `EVP-XXXXXXXX`, e historial). (Mapea a REQ-001, REQ-004)
+- [ ] **T-004 (Suite de Pruebas Pytest):** Escribir 18 pruebas unitarias robustas en `backend/tests/test_main.py` para verificar todos los criterios de aceptación funcionales (AC-001 a AC-008). (Mapea a AC-001 al AC-008)
+- [ ] **T-005 (Frontend Glassmorphism Dark):** Construir la aplicación frontend SPA en React + Bootstrap en `frontend/index.html` con soporte para login, registro, catálogo de eventos, filtros, detalles de eventos, historial de reservas y cancelación de reservas. (Mapea a REQ-005)
