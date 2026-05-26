@@ -1,0 +1,60 @@
+{
+  "cycle_id": "CYCLE-20260525-171117",
+  "trace_id": "TRACE-20260525-171117",
+  "work_order_id": "WO-20260525-171117",
+  "project_id": "CUATRO",
+  "project_name": "StockMaster ERP Lite",
+  "status": "complete",
+  "objective": "Desarrollar una aplicación web responsiva para gestionar inventario avanzado con lógica tipo ERP, permitiendo controlar productos, bodegas, stock, movimientos, alertas, dashboard ejecutivo y reportes operacionales.",
+  "current_phase": "CLOSE",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pass",
+    "requirements_quality": "pass",
+    "plan_valid": "pass",
+    "analyze": "pass",
+    "validation": "pass",
+    "security": "pass",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/CUATRO/specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/CUATRO/Aprendizaje.md",
+    "spec": "projects/CUATRO/specs/spec.md",
+    "clarifications": "projects/CUATRO/specs/clarifications.md",
+    "checklist": "projects/CUATRO/specs/checklist.md",
+    "plan": "projects/CUATRO/specs/plan.md",
+    "data_model": "projects/CUATRO/specs/data-model.md",
+    "test_plan": "projects/CUATRO/specs/test-plan.md",
+    "tasks": "projects/CUATRO/specs/tasks.md",
+    "analyze": "projects/CUATRO/specs/analyze-report.md",
+    "traceability": "projects/CUATRO/specs/traceability-matrix.md",
+    "backend": "projects/CUATRO/backend",
+    "frontend": "projects/CUATRO/frontend",
+    "test_report": "projects/CUATRO/specs/test-report.md",
+    "validation": "projects/CUATRO/specs/validation-report.md",
+    "security": "projects/CUATRO/specs/security-review.md",
+    "deployment_plan": "projects/CUATRO/specs/deployment-plan.md",
+    "rollback_plan": "projects/CUATRO/specs/rollback-plan.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {
+    "input_tokens": 13570,
+    "cached_input_tokens": 0,
+    "output_tokens": 13700,
+    "tool_calls": 0,
+    "estimated_cost": 0.0051277499999999995
+  },
+  "decisions": [],
+  "risks": [],
+  "errors": []
+}

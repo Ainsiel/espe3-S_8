@@ -1,0 +1,40 @@
+{
+  "cycle_id": "CYCLE-20260525-152501",
+  "trace_id": "TRACE-20260525-152501",
+  "work_order_id": "WO-20260525-152501",
+  "project_id": "UNO ",
+  "project_name": "TaskLiteJota",
+  "status": "error",
+  "objective": "Gestor de Tareas Personales con FastAPI, SQLite y React Bootstrap",
+  "current_phase": "EXECUTE_SDD",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pending",
+    "requirements_quality": "pending",
+    "plan_valid": "pending",
+    "analyze": "pending",
+    "validation": "pending",
+    "security": "pending",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/UNO /specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/UNO /Aprendizaje.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {},
+  "decisions": [],
+  "risks": [],
+  "errors": [
+    "Invalid format specifier ' 1, \"titulo\": \"Tarea A\", ... ' for object of type 'str'"
+  ]
+}

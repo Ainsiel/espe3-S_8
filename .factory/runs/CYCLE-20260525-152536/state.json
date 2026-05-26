@@ -1,0 +1,49 @@
+{
+  "cycle_id": "CYCLE-20260525-152536",
+  "trace_id": "TRACE-20260525-152536",
+  "work_order_id": "WO-20260525-152536",
+  "project_id": "test_project",
+  "project_name": "Test Project",
+  "status": "error",
+  "objective": "Quiero una base de datos simple de items",
+  "current_phase": "EXECUTE_SDD",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pass",
+    "requirements_quality": "pass",
+    "plan_valid": "pass",
+    "analyze": "pass",
+    "validation": "pending",
+    "security": "pending",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/test_project/specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/test_project/Aprendizaje.md",
+    "spec": "projects/test_project/specs/spec.md",
+    "clarifications": "projects/test_project/specs/clarifications.md",
+    "checklist": "projects/test_project/specs/checklist.md",
+    "plan": "projects/test_project/specs/plan.md",
+    "data_model": "projects/test_project/specs/data-model.md",
+    "test_plan": "projects/test_project/specs/test-plan.md",
+    "tasks": "projects/test_project/specs/tasks.md",
+    "analyze": "projects/test_project/specs/analyze-report.md",
+    "traceability": "projects/test_project/specs/traceability-matrix.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {},
+  "decisions": [],
+  "risks": [],
+  "errors": [
+    "cannot unpack non-iterable NoneType object"
+  ]
+}

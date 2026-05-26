@@ -1,0 +1,170 @@
+{
+  "last_updated": "2026-05-25T19:28:27.249344Z",
+  "spec_index": {},
+  "code_index": {
+    "chat.py": {
+      "path": "chat.py",
+      "hash": "dfb87bf250af5e945d85f0fb8e87ca6905c88ebef6d1d3cb650a500831f234f6",
+      "size": 8769,
+      "last_modified": "2026-05-25T19:06:44.825088Z"
+    },
+    "core/usage_ledger.py": {
+      "path": "core/usage_ledger.py",
+      "hash": "505aa30396646112252ddf2b51b759b7744cf03d59561877a26aed9b3fce7024",
+      "size": 2659,
+      "last_modified": "2026-05-25T19:06:28.541486Z"
+    },
+    "core/cache_manager.py": {
+      "path": "core/cache_manager.py",
+      "hash": "21fdf8558d14625e5186250188a05447b3c9b47028c25445c93de2c6e372bd15",
+      "size": 2060,
+      "last_modified": "2026-05-25T15:08:18.590371Z"
+    },
+    "core/logger.py": {
+      "path": "core/logger.py",
+      "hash": "461f2fc41d8071d69b660c6b1d503855e6e05ae4b49f744d02484bfc5a26abe8",
+      "size": 2635,
+      "last_modified": "2026-05-25T19:06:25.647186Z"
+    },
+    "core/sandbox.py": {
+      "path": "core/sandbox.py",
+      "hash": "accf42576f5c9b8e3cfbcab0b37953243c1cbf33eb677177bde0d566a4d890b8",
+      "size": 4672,
+      "last_modified": "2026-05-25T19:16:50.103234Z"
+    },
+    "core/orchestrator.py": {
+      "path": "core/orchestrator.py",
+      "hash": "0807b66cc5c77a3beba9dcf17421de729aba1efefd514f8419bb75070a7ae955",
+      "size": 15230,
+      "last_modified": "2026-05-25T19:06:35.663502Z"
+    },
+    "core/index_manager.py": {
+      "path": "core/index_manager.py",
+      "hash": "269d777795458ada2a73fa26463f8ebbfa47efa2852670262b56aea018f1db0a",
+      "size": 4224,
+      "last_modified": "2026-05-25T19:06:32.004080Z"
+    },
+    "agents/implementer_agent.py": {
+      "path": "agents/implementer_agent.py",
+      "hash": "8b5d2527856a6d3ee0e2f2e8d9f521a81fc418c665843416d1fb50a8584a12b6",
+      "size": 121764,
+      "last_modified": "2026-05-25T17:09:34.865078Z"
+    },
+    "agents/architect_agent.py": {
+      "path": "agents/architect_agent.py",
+      "hash": "7cbb99a070547d531fb10b0c6350205d3346167fcb92b0b2e49175178277d43c",
+      "size": 9520,
+      "last_modified": "2026-05-25T17:09:00.215605Z"
+    },
+    "agents/ops_security_agent.py": {
+      "path": "agents/ops_security_agent.py",
+      "hash": "af8cd6ef1f59e31b45532fdda1fe3fc5b3c7288f4daf8052faecd057f91d5ea5",
+      "size": 7565,
+      "last_modified": "2026-05-25T17:10:48.108221Z"
+    },
+    "agents/clarifier_qa_agent.py": {
+      "path": "agents/clarifier_qa_agent.py",
+      "hash": "1516c9f32820652d73c338de13f5488b89b0c1140654142b0bf18b439c15e768",
+      "size": 6175,
+      "last_modified": "2026-05-25T17:08:55.472769Z"
+    },
+    "agents/sdd_spec_agent.py": {
+      "path": "agents/sdd_spec_agent.py",
+      "hash": "3e89cfd9eddabc63284f9bad24c8286d405198caa8f447a2d821c32e51f78194",
+      "size": 15839,
+      "last_modified": "2026-05-25T19:06:41.812737Z"
+    },
+    "agents/validation_agent.py": {
+      "path": "agents/validation_agent.py",
+      "hash": "82327e55b7e7899d2189680a84c549f730257c3ae23cfb364cc3692a1e870f17",
+      "size": 8569,
+      "last_modified": "2026-05-25T17:10:32.256930Z"
+    },
+    "agents/task_analyzer_agent.py": {
+      "path": "agents/task_analyzer_agent.py",
+      "hash": "d112f908ac0b27e79325a8789d737997fe4835218157357c0e074916f1c9306a",
+      "size": 8288,
+      "last_modified": "2026-05-25T17:09:04.152019Z"
+    },
+    ".factory/cache.json": {
+      "path": ".factory/cache.json",
+      "hash": "0c3dbe09afec82bcc304cb6dc4d5f632e72b17e79c9926d5e9a6f58d124600f4",
+      "size": 9291,
+      "last_modified": "2026-05-25T19:19:24.421067Z"
+    },
+    ".factory/index.json": {
+      "path": ".factory/index.json",
+      "hash": "9b79db7a8f9911390b517f1bebd4316698376b5a76a5678b47f47fc7f2870ccc",
+      "size": 43902,
+      "last_modified": "2026-05-25T19:19:24.420917Z"
+    }
+  },
+  "test_index": {
+    "pytest.ini": {
+      "path": "pytest.ini",
+      "hash": "04e5edee92304ba9698e939406bb126d1e4c0c482511ddc36b1a35db2591c069",
+      "size": 198,
+      "last_modified": "2026-05-25T19:07:34.396770Z"
+    },
+    "core/tests/test_orchestrator.py": {
+      "path": "core/tests/test_orchestrator.py",
+      "hash": "86b0a2e0629399a1684f5b91328a299380ade4cc7e060243d7cc7c639b55c474",
+      "size": 2418,
+      "last_modified": "2026-05-25T19:17:05.628193Z"
+    }
+  },
+  "policy_index": {
+    "02_Arquitectura_Stack_y_Flujos_SDD.md": {
+      "path": "02_Arquitectura_Stack_y_Flujos_SDD.md",
+      "hash": "792df11193be301fe00638a5ae634d8ed578c8f711cf9dfef35c292f4a37ffdd",
+      "size": 13893,
+      "last_modified": "2026-05-25T14:59:22.714507Z"
+    },
+    "03_Agentes_Skills_Herramientas_y_Permisos.md": {
+      "path": "03_Agentes_Skills_Herramientas_y_Permisos.md",
+      "hash": "76fc6f83a11555328f9a902616dbb7b4a2ae5ceaa74ab4535355b44e9e9df490",
+      "size": 17320,
+      "last_modified": "2026-05-25T19:16:56.221372Z"
+    },
+    "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md": {
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "hash": "8b4f89c3732e50244143692c0642a7939605c8ece0868517036592fe9bdcce46",
+      "size": 18608,
+      "last_modified": "2026-05-25T14:59:31.470731Z"
+    },
+    "01_Constitucion_y_Especificacion_Fabrica.md": {
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "hash": "cc002a83ca2ac06ed4995c957a74c3484159519e2d407ac3725a8ecbb940b67a",
+      "size": 18888,
+      "last_modified": "2026-05-25T14:59:19.422244Z"
+    }
+  },
+  "learning_index": {
+    "Aprendizaje.md": {
+      "path": "Aprendizaje.md",
+      "hash": "2627ffd2ce6312eccdf18c8b298aa3e079ad71eee33e4af47afefeca4d45673e",
+      "size": 3237,
+      "last_modified": "2026-05-25T19:06:53.460285Z"
+    }
+  },
+  "evidence_index": {
+    "HANDOFF.md": {
+      "path": "HANDOFF.md",
+      "hash": "e157ba6d64fbde4a26a1c048171b74a9f419bf5b15ebf61aac0db5d86086056b",
+      "size": 1331,
+      "last_modified": "2026-05-25T19:20:09.603605Z"
+    },
+    "projects/EJEMPLO_DOS/especificacion_sistema_inventario_erp.md": {
+      "path": "projects/EJEMPLO_DOS/especificacion_sistema_inventario_erp.md",
+      "hash": "6195f38141f029082a91babd39d52c4f8c5ef40d931276d51b3051ff2cc90c29",
+      "size": 39763,
+      "last_modified": "2026-05-25T17:03:28.224424Z"
+    },
+    "projects/EJEMPLO_UNO/sistema_dos.md": {
+      "path": "projects/EJEMPLO_UNO/sistema_dos.md",
+      "hash": "7fa6c56db4064c8674de46975638e8c07564caaffecb3bc048e25deb60f80029",
+      "size": 7293,
+      "last_modified": "2026-05-20T13:16:38.955616Z"
+    }
+  }
+}

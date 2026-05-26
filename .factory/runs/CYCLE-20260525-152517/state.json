@@ -1,0 +1,60 @@
+{
+  "cycle_id": "CYCLE-20260525-152517",
+  "trace_id": "TRACE-20260525-152517",
+  "work_order_id": "WO-20260525-152517",
+  "project_id": "UNO ",
+  "project_name": "TaskLiteJota",
+  "status": "complete",
+  "objective": "Gestor de Tareas Personales con FastAPI, SQLite y React Bootstrap",
+  "current_phase": "CLOSE",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pass",
+    "requirements_quality": "pass",
+    "plan_valid": "pass",
+    "analyze": "pass",
+    "validation": "pass",
+    "security": "pass",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/UNO /specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/UNO /Aprendizaje.md",
+    "spec": "projects/UNO /specs/spec.md",
+    "clarifications": "projects/UNO /specs/clarifications.md",
+    "checklist": "projects/UNO /specs/checklist.md",
+    "plan": "projects/UNO /specs/plan.md",
+    "data_model": "projects/UNO /specs/data-model.md",
+    "test_plan": "projects/UNO /specs/test-plan.md",
+    "tasks": "projects/UNO /specs/tasks.md",
+    "analyze": "projects/UNO /specs/analyze-report.md",
+    "traceability": "projects/UNO /specs/traceability-matrix.md",
+    "backend": "projects/UNO /backend",
+    "frontend": "projects/UNO /frontend",
+    "test_report": "projects/UNO /specs/test-report.md",
+    "validation": "projects/UNO /specs/validation-report.md",
+    "security": "projects/UNO /specs/security-review.md",
+    "deployment_plan": "projects/UNO /specs/deployment-plan.md",
+    "rollback_plan": "projects/UNO /specs/rollback-plan.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {
+    "input_tokens": 12825,
+    "cached_input_tokens": 0,
+    "output_tokens": 13700,
+    "tool_calls": 0,
+    "estimated_cost": 0.005071874999999999
+  },
+  "decisions": [],
+  "risks": [],
+  "errors": []
+}

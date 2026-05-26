@@ -1,0 +1,40 @@
+{
+  "cycle_id": "CYCLE-20260525-151139",
+  "trace_id": "TRACE-20260525-151139",
+  "work_order_id": "WO-20260525-151139",
+  "project_id": "test_project",
+  "project_name": "Test Project",
+  "status": "error",
+  "objective": "Quiero una base de datos simple de items",
+  "current_phase": "EXECUTE_SDD",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pending",
+    "requirements_quality": "pending",
+    "plan_valid": "pending",
+    "analyze": "pending",
+    "validation": "pending",
+    "security": "pending",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/test_project/specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/test_project/Aprendizaje.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {},
+  "decisions": [],
+  "risks": [],
+  "errors": [
+    "Invalid format specifier ' 1, ... ' for object of type 'str'"
+  ]
+}

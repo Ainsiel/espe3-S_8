@@ -1,0 +1,60 @@
+{
+  "cycle_id": "CYCLE-20260525-191708",
+  "trace_id": "TRACE-20260525-191708",
+  "work_order_id": "WO-20260525-191708",
+  "project_id": "test_project",
+  "project_name": "Test Project",
+  "status": "complete",
+  "objective": "Quiero una base de datos simple de items",
+  "current_phase": "CLOSE",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pass",
+    "requirements_quality": "pass",
+    "plan_valid": "pass",
+    "analyze": "pass",
+    "validation": "pass",
+    "security": "pass",
+    "budget": "pending"
+  },
+  "artifacts": {
+    "work_order": "projects/test_project/specs/work_order.json",
+    "learning_fabrica": "Aprendizaje.md",
+    "learning_proyecto": "projects/test_project/Aprendizaje.md",
+    "spec": "projects/test_project/specs/spec.md",
+    "clarifications": "projects/test_project/specs/clarifications.md",
+    "checklist": "projects/test_project/specs/checklist.md",
+    "plan": "projects/test_project/specs/plan.md",
+    "data_model": "projects/test_project/specs/data-model.md",
+    "test_plan": "projects/test_project/specs/test-plan.md",
+    "tasks": "projects/test_project/specs/tasks.md",
+    "analyze": "projects/test_project/specs/analyze-report.md",
+    "traceability": "projects/test_project/specs/traceability-matrix.md",
+    "backend": "projects/test_project/backend",
+    "frontend": "projects/test_project/frontend",
+    "test_report": "projects/test_project/specs/test-report.md",
+    "validation": "projects/test_project/specs/validation-report.md",
+    "security": "projects/test_project/specs/security-review.md",
+    "deployment_plan": "projects/test_project/specs/deployment-plan.md",
+    "rollback_plan": "projects/test_project/specs/rollback-plan.md"
+  },
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {
+    "input_tokens": 12700,
+    "cached_input_tokens": 0,
+    "output_tokens": 13700,
+    "tool_calls": 0,
+    "estimated_cost": 0.0050625
+  },
+  "decisions": [],
+  "risks": [],
+  "errors": []
+}

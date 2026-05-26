@@ -1,0 +1,34 @@
+{
+  "cycle_id": "CYCLE-20260525-190455",
+  "trace_id": "TRACE-20260525-190455",
+  "work_order_id": "WO-20260525-190455",
+  "project_id": "test_project",
+  "project_name": "Test Project",
+  "status": "running",
+  "objective": "Requerimiento de pruebas",
+  "current_phase": "INIT",
+  "stack": {
+    "backend": "Python3/FastAPI",
+    "frontend": "React/Bootstrap",
+    "database": "LiteSQL (SQLite)"
+  },
+  "gates": {
+    "sdd_spec_first": "pending",
+    "requirements_quality": "pending",
+    "plan_valid": "pending",
+    "analyze": "pending",
+    "validation": "pending",
+    "security": "pending",
+    "budget": "pending"
+  },
+  "artifacts": {},
+  "budget": {
+    "max_tokens": 100000,
+    "max_tool_calls": 50,
+    "max_duration_minutes": 10
+  },
+  "usage": {},
+  "decisions": [],
+  "risks": [],
+  "errors": []
+}
